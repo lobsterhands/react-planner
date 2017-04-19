@@ -1,0 +1,20 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.Todos {
+  width: 360px;
+  min-height: 200px;
+  border: 1px solid black;
+  text-align: left;
+}
+
+.Planner {
+  text-align: center;
+  border: 1px solid black;
+}
