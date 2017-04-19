@@ -1,7 +1,8 @@
 var React = require('react');
 var PropTypes = require('prop-types');
-var Todos = require('./Todos');
 var Calendar = require('./Calendar');
+var Clock = require('./Clock');
+var Todos = require('./Todos');
 
 class Planner extends React.Component {
 
@@ -31,6 +32,7 @@ class Planner extends React.Component {
     return (
       <div className="Planner">
         <h1>Planner</h1>
+        <Clock />
         <Todos todos={this.state.todos} inputHandler={(e) => this.handleEnter(e)} />
         <Calendar />
       </div>
