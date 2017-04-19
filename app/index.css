@@ -1,3 +1,13 @@
+* {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -14,7 +24,26 @@ h2 {
   text-align: left;
 }
 
+.Calendar {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
 .Planner {
+  display: flex;
   text-align: center;
   border: 1px solid black;
+}
+
+.calendar-day {
+  width: 100px;
+  height: 70px;
+  background: gray;
+  border: 1px solid black;
+  float: right;
+  margin: 4px;
+}
+
+.calendar-left, .calendar-right {
+  cursor: pointer;
 }
