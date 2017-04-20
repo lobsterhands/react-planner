@@ -42,6 +42,7 @@ class Calendar extends React.Component {
 
   goForwardInTime() {
     const date = this.state.date;
+    console.log(date.parse());
     const nextMonthDate = date.setMonth(date.getMonth() + 1);
 
     this.setState(function() {
@@ -49,6 +50,22 @@ class Calendar extends React.Component {
         date: nextMonthDate
       );
     });
+  }
+
+  getFirstDayOfMonth() {
+    // Returns zero-based integer representing the first day of the month
+    // 0 = Sunday, 6 = Saturday
+    const date = this.state.date;
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    return firstDay;
+  }
+
+  getLastDayOfMonth() {
+    // Returns zero-based integer representing the first day of the month
+    // 0 = Sunday, 6 = Saturday
+    const date = this.state.date;
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
+    return lastDay;
   }
 
   render() {
@@ -72,6 +89,8 @@ class Calendar extends React.Component {
         </div>
 
         <h3>{currentMonth} {currentYear}</h3>
+        <p>First day: {this.getFirstDayOfMonth() + ''}</p>
+        <p>Last day: {this.getLastDayOfMonth() + ''}</p>
         <h4>Days in this month: {daysInMonth}</h4>
           {
             this.renderDays().map(function (div) {
