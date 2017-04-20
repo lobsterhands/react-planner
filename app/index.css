@@ -18,21 +18,22 @@ h2 {
 }
 
 .Todos {
+  display: inline-block;
   width: 360px;
   min-height: 200px;
   border: 1px solid black;
   text-align: left;
+  float: left;
 }
 
 .Planner {
-  display: flex;
   text-align: center;
   border: 1px solid black;
 }
 
 .Calendar {
-  border: 1px solid black;
   margin: 0 auto;
+  float: right;
 }
 
 .Clock {
@@ -41,12 +42,28 @@ h2 {
 .calendar-day {
   width: 100px;
   height: 70px;
-  background: gray;
-  border: 1px solid black;
-  float: right;
+  float: left;
   margin: 4px;
 }
 
 .calendar-left, .calendar-right {
   cursor: pointer;
+  padding: 4px 20px;
+}
+
+.current-month {
+  background: orange;
+}
+
+.table-calendar {
+  margin-top: 16px;
+}
+
+.not-current-month {
+  background: #eee;
+  color: #aaa;
+}
+
+.year-month h3, .year-month p {
+  display: inline;
 }
