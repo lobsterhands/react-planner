@@ -1,0 +1,1 @@
+1. Add a style to slightly dim the calendar days that belong to the current-month but whose day has passed.
