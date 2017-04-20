@@ -41,12 +41,21 @@ h2 {
 .calendar-day {
   width: 100px;
   height: 70px;
-  background: gray;
   border: 1px solid black;
-  float: right;
+  float: left;
   margin: 4px;
 }
 
 .calendar-left, .calendar-right {
   cursor: pointer;
+  display: inline;
+}
+
+.current {
+  background: orange;
+}
+
+.not-current {
+  background: #eee;
+  color: #aaa;
 }
