@@ -24,15 +24,18 @@ h2 {
   text-align: left;
 }
 
+.Planner {
+  display: flex;
+  text-align: center;
+  border: 1px solid black;
+}
+
 .Calendar {
   border: 1px solid black;
   margin: 0 auto;
 }
 
-.Planner {
-  display: flex;
-  text-align: center;
-  border: 1px solid black;
+.Clock {
 }
 
 .calendar-day {
