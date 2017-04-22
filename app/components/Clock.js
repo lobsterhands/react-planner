@@ -24,9 +24,14 @@ class Clock extends React.Component {
   }
 
   render() {
+    const currentDate = this.state.date.getDate();
+    const currentMonth = this.props.monthNames[this.state.date.getMonth()];
+    const currentYear = this.state.date.getFullYear();
+
     return (
       <div>
-        <h2>{this.state.date.toLocaleTimeString()}</h2>
+        <h2>Current Date: {currentDate} {currentMonth} {currentYear}</h2>
+        <h2>Current Local Time: {this.state.date.toLocaleTimeString()}</h2>
       </div>
     )
   }
