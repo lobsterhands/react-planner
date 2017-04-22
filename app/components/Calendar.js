@@ -5,9 +5,15 @@ class Calendar extends React.Component {
 
   constructor(props) {
     super(props);
+
+    var viewDate = new Date();
+    viewDate.setDate(1);
     this.state = {
       trueDate: new Date(),
-      viewDate: new Date(),
+      viewDate: viewDate,
+      // viewYear
+      // viewMonth:
+      // viewDay:
       calendarDays: new Array(42).fill(0),
     };
   }
@@ -79,32 +85,23 @@ class Calendar extends React.Component {
     // @daysInMonth: 1-based number of days in the current month
     // @daysLastMonth: number days in previous month
 
-    const daysThisMonth = this.state.calendarDays.map(function (day, index) {
-      let dayNumber;
-      let currentMonth = false;
-      let beforeToday = false;
-      let isCurrentDay = false;
-      if (index < firstDayOfMonth) {
-        dayNumber = daysLastMonth - (firstDayOfMonth - (index + 1));
-      } else if (index >= firstDayOfMonth && index < (daysInMonth + firstDayOfMonth)) {
-        dayNumber = index - (firstDayOfMonth - 1);
-        currentMonth = true;
+    const daysThisMonth = this.state.calendarDays.map((day, index) => {
 
-        if (viewDate.getFullYear() === trueDate.getFullYear()
-          && viewDate.getMonth() === trueDate.getMonth()
-          && dayNumber === viewDate.getDate()) {
-          isCurrentDay = true;
-        }
+      let calendarDate = new Date();
+
+      if (index < firstDayOfMonth) {
+        calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
+        console.log(calendarDate);
+      } else if (index >= firstDayOfMonth && index < (daysInMonth + firstDayOfMonth)) {
+        calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
       } else {
-        dayNumber = (index - (firstDayOfMonth - 1)) % daysInMonth;
+        // dayNumber = (index - (firstDayOfMonth - 1)) % daysInMonth;
+        calendarDate.setDate(viewDate.getDate() - (index + daysInMonth));
       }
 
       return (
-        <div key={index} className={"calendar-day " +
-          (currentMonth ? "current-month " : "not-current-month ") +
-          (isCurrentDay ? "current-day " : "")
-         }>
-          {dayNumber}
+        <div key={index} className={"calendar-day "}>
+          {calendarDate.getDate()}
         </div>
       )
     })

@@ -76,6 +76,17 @@ h2 {
   border: 5px solid #2494e7;
 }
 
+.year-month {
+  margin: 0 auto;
+  width: 50%;
+}
+
 .year-month h3, .year-month p {
   display: inline;
+}
+
+
+.day-past {
+  background: rgba(200, 150, 72, .4);
+  color: #333;
 }
