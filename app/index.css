@@ -8,6 +8,11 @@
   user-select: none;
 }
 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, SegoeU UI, Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -52,7 +57,7 @@ h2 {
 }
 
 .current-month {
-  background: orange;
+  background: #f7ba07;
 }
 
 .table-calendar {
@@ -62,6 +67,13 @@ h2 {
 .not-current-month {
   background: #eee;
   color: #aaa;
+}
+
+.current-day {
+  box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  border: 5px solid #2494e7;
 }
 
 .year-month h3, .year-month p {
