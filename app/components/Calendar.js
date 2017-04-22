@@ -26,32 +26,36 @@ class Calendar extends React.Component {
   goBackInTime() {
     // Display previous month's calendar
     const viewDate = this.state.viewDate;
-    const lastMonthDate = viewDate.setMonth(viewDate.getMonth() - 1);
+    const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, viewDate.getDate());
 
-    this.setState(function() {
-      return (
-        viewDate: lastMonthDate
-      );
-    });
+    this.setState(function () {
+    return {
+      viewDate: newView,
+      }
+    })
   }
 
   goForwardInTime() {
     // Display next month's calendar
     const viewDate = this.state.viewDate;
-    const nextMonthDate = viewDate.setMonth(viewDate.getMonth() + 1);
+    const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
 
-    this.setState(function() {
-      return (
-        viewDate: nextMonthDate
-      );
-    });
+    this.setState(function () {
+    return {
+      viewDate: newView,
+      }
+    })
   }
 
   getFirstDayOfMonth() {
     // Returns zero-based integer representing the first day of the month
     // 0 = Sunday, 6 = Saturday
     const viewDate = this.state.viewDate;
-    var firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+    const firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+
+    if (firstDay === 0) {
+      return firstDay + 7;
+    }
     return firstDay;
   }
 
@@ -59,48 +63,42 @@ class Calendar extends React.Component {
     // Returns zero-based integer representing the first day of the month
     // 0 = Sunday, 6 = Saturday
     const viewDate = this.state.viewDate;
-    var lastDay = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDay();
+    const lastDay = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDay();
     return lastDay;
   }
 
   getDaysLastMonth() {
     // Returns the number of days for the previous month
     const viewDate = this.state.viewDate;
-    var firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 0).getDate();
+    const firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 0).getDate();
     return firstDay;
   }
 
   renderDayNames() {
-    const dayNames = this.props.dayNames.slice();
-
-    return dayNames.map((name) => {
+    return this.props.dayNames.map((name) => {
       return (
         <th key={name} scope="col" className="th-day-name">{ name }</th>
       )
     })
   }
 
-  renderCalendarDays(trueDate, viewDate, firstDayOfMonth, daysInMonth, daysLastMonth) {
-    // @firstDay: 0-based integer (0 = Sunday, 6 = Saturday)
-    // @daysInMonth: 1-based number of days in the current month
-    // @daysLastMonth: number days in previous month
+  renderCalendarDays(viewDate, firstDayOfMonth, daysInMonth) {
+    // @viewDate: this.state.viewDate
+    // @firstDayOfMonth: 0-based (0 = Sunday ... 6 = Saturday)
+    // @daysInMonth: number days in previous month
 
     const daysThisMonth = this.state.calendarDays.map((day, index) => {
-
-      let calendarDate = new Date();
+      let calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
 
       if (index < firstDayOfMonth) {
         calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
-        console.log(calendarDate);
-      } else if (index >= firstDayOfMonth && index < (daysInMonth + firstDayOfMonth)) {
+      } else if (index >= firstDayOfMonth && index <= (daysInMonth + firstDayOfMonth)) {
         calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
       } else {
         // dayNumber = (index - (firstDayOfMonth - 1)) % daysInMonth;
-        calendarDate.setDate(viewDate.getDate() - (index + daysInMonth));
       }
 
       return (
-        <div key={index} className={"calendar-day "}>
           {calendarDate.getDate()}
         </div>
       )
@@ -115,12 +113,10 @@ class Calendar extends React.Component {
 
     const oneBaseMonth = zeroBaseMonth + 1;
     const currentYear = this.state.viewDate.getFullYear();
-    const daysInMonth = this.getDaysInMonth(oneBaseMonth, currentYear);
 
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const lastDayOfMonth = this.getLastDayOfMonth();
     const daysLastMonth = this.getDaysLastMonth();
-    const calendarDays = this.renderCalendarDays(this.state.trueDate, this.state.viewDate, firstDayOfMonth, daysInMonth, daysLastMonth);
 
     return (
       <div className="Calendar">

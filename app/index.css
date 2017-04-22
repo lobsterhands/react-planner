@@ -78,13 +78,12 @@ h2 {
 
 .year-month {
   margin: 0 auto;
-  width: 50%;
+   max-width: 500px;
 }
 
 .year-month h3, .year-month p {
   display: inline;
 }
-
 
 .day-past {
   background: rgba(200, 150, 72, .4);
