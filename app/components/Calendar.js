@@ -95,10 +95,17 @@ class Calendar extends React.Component {
       } else if (index >= firstDayOfMonth && index <= (daysInMonth + firstDayOfMonth)) {
         calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
       } else {
-        // dayNumber = (index - (firstDayOfMonth - 1)) % daysInMonth;
+        calendarDate.setDate(viewDate.getDate() + (index) - firstDayOfMonth);
+      }
+
+      let isCurrentMonth = false;
+      if (!(calendarDate < this.state.trueDate) && calendarDate.getMonth() === viewDate.getMonth()) {
+        isCurrentMonth = true;
       }
 
       return (
+        <div key={index} className={"calendar-day " +
+          (isCurrentMonth ? "current-month " : "not-current-month")} >
           {calendarDate.getDate()}
         </div>
       )
@@ -114,9 +121,11 @@ class Calendar extends React.Component {
     const oneBaseMonth = zeroBaseMonth + 1;
     const currentYear = this.state.viewDate.getFullYear();
 
+    const daysInMonth = this.getDaysInMonth(oneBaseMonth, currentYear);
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const lastDayOfMonth = this.getLastDayOfMonth();
     const daysLastMonth = this.getDaysLastMonth();
+    const calendarDays = this.renderCalendarDays(this.state.viewDate, firstDayOfMonth, daysInMonth);
 
     return (
       <div className="Calendar">
