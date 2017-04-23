@@ -36,24 +36,26 @@ h2 {
   border: 1px solid black;
 }
 
+.Clock {
+}
+
 .Calendar {
   margin: 0 auto;
   float: right;
 }
 
-.Clock {
+.current-day {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 5px solid rgba(1, 21, 243, 0.8);
 }
 
 .calendar-day {
-  width: 100px;
-  height: 70px;
-  float: left;
-  margin: 4px;
-}
-
-.calendar-left, .calendar-right {
-  cursor: pointer;
-  padding: 4px 20px;
+  width: 110px;
+  height: 90px;
+  /*float: left;*/
+  margin: 2px;
 }
 
 .current-month {
@@ -69,21 +71,30 @@ h2 {
   color: #aaa;
 }
 
-.current-day {
-  box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-  border: 5px solid #2494e7;
-}
+
 
 .year-month {
   margin: 0 auto;
-   max-width: 500px;
+  max-width: 280px;
 }
 
 .year-month h3, .year-month p {
   display: inline;
 }
+
+.calendar-left, .calendar-right {
+  cursor: pointer;
+  padding: 6px;
+}
+
+.calendar-right {
+  float: right;
+}
+.calendar-left {
+  float: left;
+}
+
+
 
 .day-past {
   background: rgba(200, 150, 72, .4);
