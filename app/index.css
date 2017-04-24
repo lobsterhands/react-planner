@@ -68,7 +68,7 @@ h2 {
   height: 90px;
   /*float: left;*/
   margin: 2px;
-  cursor: default;
+  cursor: pointer;
 }
 
 .current-month {
@@ -108,4 +108,9 @@ h2 {
 .day-past {
   background: rgba(200, 150, 72, .4);
   color: #333;
+}
+
+.has-todo::after {
+  display: block;
+  content: "\25A1";
 }

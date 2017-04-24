@@ -9,23 +9,31 @@ class Planner extends React.Component {
   constructor() {
     super();
 
+    var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
+    trueDate.setHours(0, 0, 0, 0);
+
     this.state = {
-      todos: new Array({
-        activity: 'buy milk',
-        date: new Date()
-      }, {
-        activity: 'sleep in',
-        date: new Date()
-      }),
+      trueDate: trueDate,
+      todos: new Array(),
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      calendarDays: new Array(42).fill(0),
     }
   }
 
-  handleEnter(e) {
-    if (e.key === 'Enter') {
+  updateTrueDate() {
+    var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
+    trueDate.setHours(0, 0, 0, 0);
+
+    this.setState(function () {
+      return {
+        trueDate: trueDate
+      }
+    })
+  }
+
+  handleInput(e) {
+    if (e.key === 'Enter' && e.target.value !== "") {
       e.preventDefault();
 
       const isActivityUnique = this.state.todos.every((todo) => {
@@ -56,29 +64,18 @@ class Planner extends React.Component {
     }
   }
 
-  updateCalendarDays(newDays) {
-    this.setState(function() {
-      return {
-        calendarDays: newDays
-      }
-    })
-  }
-
   render() {
-    console.log(this.state.calendarDays);
-
     return (
       <div className="Planner">
         <h1>Planner</h1>
-        <Clock monthNames={this.state.monthNames}/>
-        <Todos todos={this.state.todos} inputHandler={(e) => this.handleEnter(e)} />
+        <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
+        <Todos todos={this.state.todos} inputHandler={(e) => this.handleInput(e)} />
         <Calendar
-          updateCalendarDays={(days) => this.updateCalendarDays(days)}
-          calendarDays={this.state.calendarDays}
+          updateCalendarDays={() => this.updateCalendarDays(days)}
           monthNames={this.state.monthNames}
           dayNames={this.state.dayNames}
           trueDate={this.state.trueDate}
-          viewDate={this.state.viewDate}/>
+          todos={this.state.todos}/>
       </div>
     )
   }
