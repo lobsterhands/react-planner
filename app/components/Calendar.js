@@ -23,12 +23,15 @@ class Calendar extends React.Component {
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const daysInMonth = this.getNumDaysInMonth();
 
-    var calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
     const daysThisMonth = new Array(42).fill(0).map((day, index) => {
-      if (index === 0) {
+      let calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
+
+      if (index < firstDayOfMonth) {
         calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
+      } else if (index >= firstDayOfMonth && index <= (daysInMonth + firstDayOfMonth)) {
+        calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
       } else {
-        calendarDate.setDate(calendarDate.getDate() + 1);
+        calendarDate.setDate(viewDate.getDate() + (index) - firstDayOfMonth);
       }
 
       var hasTodo = todos.some((todo) => {

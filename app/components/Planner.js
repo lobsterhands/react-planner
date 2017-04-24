@@ -12,10 +12,19 @@ class Planner extends React.Component {
     var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
     trueDate.setHours(0, 0, 0, 0);
 
+    var testDate = new Date();
+    testDate.setHours(0,0,0,0);
+    testDate.setDate(testDate.getDate() - 1);
+
     this.state = {
       trueDate: trueDate,
       selectedDate: trueDate,
-      todos: new Array(),
+      todos: new Array(
+        {
+          activity: 'read',
+          date: testDate
+        }
+      ),
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -23,13 +32,11 @@ class Planner extends React.Component {
   }
 
   updateSelectedDate(date) {
-    console.log('date',date);
-
-    // this.setState(function() {
-    //   return {
-    //     selectedDate: date
-    //   }
-    // })
+    this.setState(function() {
+      return {
+        selectedDate: date
+      }
+    })
   }
 
   updateTrueDate() {
@@ -80,14 +87,19 @@ class Planner extends React.Component {
       <div className="Planner">
         <h1>Planner</h1>
         <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
-        <Todos todos={this.state.todos} inputHandler={(e) => this.handleInput(e)} />
+        <Todos
+          todos={this.state.todos}
+          inputHandler={(e) => this.handleInput(e)}
+          selectedDate={this.state.selectedDate}
+        />
         <Calendar
           updateCalendarDays={() => this.updateCalendarDays(days)}
           monthNames={this.state.monthNames}
           dayNames={this.state.dayNames}
           trueDate={this.state.trueDate}
           todos={this.state.todos}
-          updateSelectedDate={(date) => this.updateSelectedDate(date)}/>
+          updateSelectedDate={(date) => this.updateSelectedDate(date)}
+        />
       </div>
     )
   }
