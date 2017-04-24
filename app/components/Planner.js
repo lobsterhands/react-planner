@@ -12,10 +12,19 @@ class Planner extends React.Component {
     var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
     trueDate.setHours(0, 0, 0, 0);
 
+    var testDate = new Date();
+    testDate.setHours(0,0,0,0);
+    testDate.setDate(testDate.getDate() - 1);
+
     this.state = {
       trueDate: trueDate,
       selectedDate: trueDate,
-      todos: new Array(),
+      todos: new Array(
+        {
+          activity: 'read',
+          date: testDate
+        }
+      ),
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -23,13 +32,11 @@ class Planner extends React.Component {
   }
 
   updateSelectedDate(date) {
-    console.log('date',date);
-
-    // this.setState(function() {
-    //   return {
-    //     selectedDate: date
-    //   }
-    // })
+    this.setState(function() {
+      return {
+        selectedDate: date
+      }
+    })
   }
 
   updateTrueDate() {
