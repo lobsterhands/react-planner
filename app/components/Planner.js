@@ -14,11 +14,22 @@ class Planner extends React.Component {
 
     this.state = {
       trueDate: trueDate,
+      selectedDate: trueDate,
       todos: new Array(),
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     }
+  }
+
+  updateSelectedDate(date) {
+    console.log('date',date);
+
+    // this.setState(function() {
+    //   return {
+    //     selectedDate: date
+    //   }
+    // })
   }
 
   updateTrueDate() {
@@ -75,7 +86,8 @@ class Planner extends React.Component {
           monthNames={this.state.monthNames}
           dayNames={this.state.dayNames}
           trueDate={this.state.trueDate}
-          todos={this.state.todos}/>
+          todos={this.state.todos}
+          updateSelectedDate={(date) => this.updateSelectedDate(date)}/>
       </div>
     )
   }

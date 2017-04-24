@@ -12,6 +12,8 @@ class Calendar extends React.Component {
     this.state = {
       viewDate: viewDate
     };
+
+    this.props.updateSelectedDate.bind(this);
   }
 
   getCalendarDays() {
@@ -49,7 +51,8 @@ class Calendar extends React.Component {
       }
 
       return (
-        <div key={calendarDate} className={"calendar-day " +
+        <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
+          className={"calendar-day " +
             (currentDay ? "current-day " : "" ) +
             (todayOrLater ? "current-month " : "not-current-month ") +
             (dayPast ? "day-past " : "") +
