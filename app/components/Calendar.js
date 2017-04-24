@@ -15,8 +15,9 @@ class Calendar extends React.Component {
   }
 
   getCalendarDays() {
+    let {trueDate, todos} = this.props;
+
     const viewDate = this.state.viewDate;
-    const trueDate = this.props.trueDate;
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const daysInMonth = this.getNumDaysInMonth();
 
@@ -27,6 +28,10 @@ class Calendar extends React.Component {
       } else {
         calendarDate.setDate(calendarDate.getDate() + 1);
       }
+
+      var hasTodo = todos.some((todo) => {
+        return (todo.date.valueOf() === calendarDate.valueOf());
+      })
 
       let currentDay = false;
       let todayOrLater = false;
@@ -47,7 +52,8 @@ class Calendar extends React.Component {
         <div key={calendarDate} className={"calendar-day " +
             (currentDay ? "current-day " : "" ) +
             (todayOrLater ? "current-month " : "not-current-month ") +
-            (dayPast ? "day-past " : "")}>
+            (dayPast ? "day-past " : "") +
+            (hasTodo ? "has-todo " : "")}>
               {calendarDate.getDate()}
         </div>
       )
