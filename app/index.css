@@ -114,3 +114,7 @@ h2 {
   display: block;
   content: "\25A1";
 }
+
+.todos-show-all {
+  margin-bottom: 40px;
+}

@@ -87,14 +87,19 @@ class Planner extends React.Component {
       <div className="Planner">
         <h1>Planner</h1>
         <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
-        <Todos todos={this.state.todos} inputHandler={(e) => this.handleInput(e)} />
+        <Todos
+          todos={this.state.todos}
+          inputHandler={(e) => this.handleInput(e)}
+          selectedDate={this.state.selectedDate}
+        />
         <Calendar
           updateCalendarDays={() => this.updateCalendarDays(days)}
           monthNames={this.state.monthNames}
           dayNames={this.state.dayNames}
           trueDate={this.state.trueDate}
           todos={this.state.todos}
-          updateSelectedDate={(date) => this.updateSelectedDate(date)}/>
+          updateSelectedDate={(date) => this.updateSelectedDate(date)}
+        />
       </div>
     )
   }
