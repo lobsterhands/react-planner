@@ -18,6 +18,15 @@ class Clock extends React.Component {
   }
 
   tick() {
+    var date = new Date();
+
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds(); // Update Planner's trueDate at Midnight
+    if (hour === 0 && hours === min && min === sec) {
+      this.props.updateTrueDate();
+    }
+
     this.setState({
       date: new Date()
     });
