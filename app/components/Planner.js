@@ -9,7 +9,10 @@ class Planner extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: new Array('buy milk')
+      todos: new Array('buy milk'),
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'],
+      dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     }
   }
 
@@ -32,9 +35,9 @@ class Planner extends React.Component {
     return (
       <div className="Planner">
         <h1>Planner</h1>
-        <Clock />
+        <Clock monthNames={this.state.monthNames}/>
         <Todos todos={this.state.todos} inputHandler={(e) => this.handleEnter(e)} />
-        <Calendar />
+        <Calendar monthNames={this.state.monthNames} dayNames={this.state.dayNames}/>
       </div>
     )
   }
