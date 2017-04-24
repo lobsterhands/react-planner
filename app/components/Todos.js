@@ -7,15 +7,17 @@ class Todos extends React.Component {
     return (
       <div className="Todos">
         <h2>Todos</h2>
+        <input type="text" onKeyPress={this.props.inputHandler}
+          placeholder="Enter a new todo"/>
         <ul>
-          {this.props.todos.map(function (todo) {
+          {this.props.todos.map(function (todo, index) {
             return (
-              <li key={todo}>{todo}</li>
+              <li className="todo" key={todo.activity} onClick={() => console.log(todo.date)}>
+                {todo.activity}
+              </li>
             )
           })}
         </ul>
-        <input type="text" onKeyPress={this.props.inputHandler}
-          placeholder="Enter a new todo"/>
       </div>
     )
   }

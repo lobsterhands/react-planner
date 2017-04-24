@@ -107,7 +107,7 @@ class Calendar extends React.Component {
             (currentDay ? "current-day " : "" ) +
             (todayOrLater ? "current-month " : "not-current-month ") +
             (dayPast ? "day-past " : "")}>
-          {calendarDate.getDate()}
+              {calendarDate.getDate()}
         </div>
       )
     })
@@ -130,11 +130,11 @@ class Calendar extends React.Component {
 
         <div className="year-month">
           <div className='calendar-left' onClick={() => this.goBackInTime()}>
-            <p>&#8678;</p>
+            &#8678;
           </div>
             <h3>{currentMonth} {currentYear}</h3>
           <div className='calendar-right' onClick={() => this.goForwardInTime()}>
-            <p>&#8680;</p>
+            &#8680;
           </div>
         </div>
 
