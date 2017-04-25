@@ -106,8 +106,8 @@ class Calendar extends React.Component {
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
 
     this.setState(function () {
-    return {
-      viewDate: newView
+      return {
+        viewDate: newView
       }
     })
   }
