@@ -22,10 +22,13 @@ h2 {
   text-align: center;
 }
 
+/*===Todos===*/
 .Todos {
   width: 360px;
   min-height: 200px;
-  border: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
   text-align: center;
   float: left;
   margin: 0 auto;
@@ -42,17 +45,30 @@ h2 {
 .todo-calendar-icon {
 }
 
+/*===Planner===*/
 .Planner {
   text-align: center;
+  margin: 0 auto;
+  width: 1200px;
+  min-width: 900px;
+  position: absolute;
   border: 1px solid black;
 }
 
+/*===Clock===*/
 .Clock {
+}
+
+/*===Calendar===*/
+/* root element selector (global scope), e.g. <html> */
+:root {
+  /* CSS variables declarations */
+  --calendar-hover: #dddddd;
+  --days-past: rgba(200, 150, 72, .4);
 }
 
 .Calendar {
   margin: 0 auto;
-  float: right;
   cursor: default;
 }
 
@@ -64,11 +80,14 @@ h2 {
 }
 
 .calendar-day {
-  width: 110px;
+  width: 70px;
   height: 90px;
-  /*float: left;*/
-  margin: 2px;
   cursor: pointer;
+  text-align: left;
+}
+
+.calendar-day:hover {
+  background: var(--calendar-hover);
 }
 
 .current-month {
@@ -76,6 +95,8 @@ h2 {
 }
 
 .table-calendar {
+  padding: 0;
+  margin: 0;
   margin-top: 16px;
 }
 
@@ -105,8 +126,16 @@ h2 {
   float: left;
 }
 
+th {
+  width: auto;
+}
+
+.th-day-name {
+  font-size: 12px;
+}
+
 .day-past {
-  background: rgba(200, 150, 72, .4);
+  background: var(--days-past);
   color: #333;
 }
 
@@ -117,4 +146,28 @@ h2 {
 
 .todos-show-all {
   margin-bottom: 40px;
+}
+
+@media only screen and (min-width : 600px) and (max-width : 1099px) {
+  .calendar-day {
+    width: 80px;
+    height: 90px;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width : 1100px) and (max-width : 1199px) {
+  .calendar-day {
+    width: 100px;
+    height: 90px;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width : 1200px) {
+  .calendar-day {
+    width: 114px;
+    height: 90px;
+    cursor: pointer;
+  }
 }
