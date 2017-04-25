@@ -23,7 +23,7 @@ class Clock extends React.Component {
     var hour = date.getHours();
     var min = date.getMinutes();
     var sec = date.getSeconds(); // Update Planner's trueDate at Midnight
-    if (hour === 0 && hours === min && min === sec) {
+    if (hour === 0 && hour === min && min === sec) {
       this.props.updateTrueDate();
     }
 
