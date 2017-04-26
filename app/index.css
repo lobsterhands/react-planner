@@ -1,3 +1,10 @@
+/* root element selector (global scope), e.g. <html> */
+:root {
+  /* CSS variables declarations */
+  --calendar-hover: #dddddd;
+  --days-past: rgba(200, 150, 72, .4);
+}
+
 * {
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
@@ -59,14 +66,77 @@ h2 {
 .Clock {
 }
 
-/*===Calendar===*/
-/* root element selector (global scope), e.g. <html> */
-:root {
-  /* CSS variables declarations */
-  --calendar-hover: #dddddd;
-  --days-past: rgba(200, 150, 72, .4);
+/*===CalendarMini===*/
+.CalendarMini {
+  margin: 0 auto;
+  float: left;
 }
 
+.year-month-mini {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+.year-month-mini h3 {
+  display: inline;
+}
+
+.calendar-left-mini, .calendar-right-mini {
+  cursor: pointer;
+  padding: 6px;
+}
+
+.calendar-left-mini {
+  float: left;
+}
+
+.calendar-right-mini {
+  float: right;
+}
+
+.current-day-mini {
+  color: blue;
+}
+
+.calendar-day-mini {
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  margin: 0;
+  padding: 2px;
+}
+
+.calendar-day-mini:hover {
+  background: var(--calendar-hover);
+}
+
+.not-current-month-mini {
+  color: #ddd;
+}
+
+.table-calendar-mini {
+  padding: 0;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.th-day-name-mini {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.has-todo-mini {
+  color: #222;
+  font-weight: bold;
+}
+
+.has-todo-mini.not-current-month-mini {
+  color: #bbb;
+}
+
+/*===CalendarMonth===*/
 .Calendar {
   margin: 0 auto;
   cursor: default;
@@ -110,7 +180,7 @@ h2 {
   max-width: 280px;
 }
 
-.year-month h3, .year-month p {
+.year-month h3 {
   display: inline;
 }
 

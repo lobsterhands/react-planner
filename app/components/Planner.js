@@ -1,8 +1,9 @@
 var React = require('react');
 var PropTypes = require('prop-types');
-var Calendar = require('./Calendar');
+var CalendarMini = require('./CalendarMini');
 var CalendarDay = require('./CalendarDay');
 var CalendarWeek = require('./CalendarWeek');
+var CalendarMonth = require('./CalendarMonth');
 var CalendarYear = require('./CalendarYear');
 var CalendarViewButton = require('./CalendarViewButton');
 var Clock = require('./Clock');
@@ -18,7 +19,7 @@ class Planner extends React.Component {
 
     var testDate = new Date();
     testDate.setHours(0,0,0,0);
-    testDate.setDate(testDate.getDate() - 1);
+    testDate.setDate(testDate.getDate() - 27);
 
     this.state = {
       trueDate: trueDate,
@@ -97,8 +98,7 @@ class Planner extends React.Component {
     const { calendarView, dayNames, monthNames, todos, trueDate } = this.state;
     let calendar = null;
     if (calendarView === 'month') {
-      calendar = <Calendar
-        updateCalendarDays={() => this.updateCalendarDays(days)}
+      calendar = <CalendarMonth
         monthNames={monthNames}
         dayNames={dayNames}
         trueDate={trueDate}
@@ -117,11 +117,19 @@ class Planner extends React.Component {
       <div className="Planner">
         <h1>Planner</h1>
         <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
-        <Todos
+        <CalendarMini
+          monthNames={monthNames}
+          dayNames={dayNames}
+          trueDate={trueDate}
+          todos={todos}
+          updateSelectedDate={(date) => this.updateSelectedDate(date)}
+        />
+      {/*<Todos
           todos={this.state.todos}
           inputHandler={(e) => this.handleInput(e)}
           selectedDate={this.state.selectedDate}
         />
+        */}
         <CalendarViewButton title={'Day'} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
         <CalendarViewButton title={'Week'} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
         <CalendarViewButton title={'Month'} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
