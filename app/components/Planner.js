@@ -1,6 +1,11 @@
 var React = require('react');
 var PropTypes = require('prop-types');
-var Calendar = require('./Calendar');
+var CalendarMini = require('./CalendarMini');
+var CalendarDay = require('./CalendarDay');
+var CalendarWeek = require('./CalendarWeek');
+var CalendarMonth = require('./CalendarMonth');
+var CalendarYear = require('./CalendarYear');
+var CalendarViewButton = require('./CalendarViewButton');
 var Clock = require('./Clock');
 var Todos = require('./Todos');
 
@@ -14,7 +19,7 @@ class Planner extends React.Component {
 
     var testDate = new Date();
     testDate.setHours(0,0,0,0);
-    testDate.setDate(testDate.getDate() - 1);
+    testDate.setDate(testDate.getDate() - 27);
 
     this.state = {
       trueDate: trueDate,
@@ -25,6 +30,7 @@ class Planner extends React.Component {
           date: testDate
         }
       ),
+      calendarView: 'month',
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -82,24 +88,53 @@ class Planner extends React.Component {
     }
   }
 
+  updateView(viewCommand) {
+    this.setState({
+      calendarView: viewCommand
+    });
+  }
+
   render() {
+    const { calendarView, dayNames, monthNames, todos, trueDate } = this.state;
+    let calendar = null;
+    if (calendarView === 'month') {
+      calendar = <CalendarMonth
+        monthNames={monthNames}
+        dayNames={dayNames}
+        trueDate={trueDate}
+        todos={todos}
+        updateSelectedDate={(date) => this.updateSelectedDate(date)}
+      />;
+  } else if (calendarView === 'day') {
+    calendar = <CalendarDay />;
+  } else if (calendarView === 'week') {
+    calendar = <CalendarWeek />;
+  } else if (calendarView === 'year') {
+    calendar = <CalendarYear />;
+  }
+
     return (
       <div className="Planner">
         <h1>Planner</h1>
         <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
-        <Todos
+        <CalendarMini
+          monthNames={monthNames}
+          dayNames={dayNames}
+          trueDate={trueDate}
+          todos={todos}
+          updateSelectedDate={(date) => this.updateSelectedDate(date)}
+        />
+      {/*<Todos
           todos={this.state.todos}
           inputHandler={(e) => this.handleInput(e)}
           selectedDate={this.state.selectedDate}
         />
-        <Calendar
-          updateCalendarDays={() => this.updateCalendarDays(days)}
-          monthNames={this.state.monthNames}
-          dayNames={this.state.dayNames}
-          trueDate={this.state.trueDate}
-          todos={this.state.todos}
-          updateSelectedDate={(date) => this.updateSelectedDate(date)}
-        />
+        */}
+        <CalendarViewButton title={'Day'} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
+        <CalendarViewButton title={'Week'} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
+        <CalendarViewButton title={'Month'} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
+        <CalendarViewButton title={'Year'} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
+        {calendar}
       </div>
     )
   }

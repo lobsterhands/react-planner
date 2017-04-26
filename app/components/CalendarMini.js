@@ -1,7 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 
-class Calendar extends React.Component {
+class CalendarMini extends React.Component {
 
   constructor(props) {
     super(props);
@@ -10,7 +10,8 @@ class Calendar extends React.Component {
     viewDate.setDate(1);
 
     this.state = {
-      viewDate: viewDate
+      viewDate: viewDate,
+      miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
     };
 
     this.props.updateSelectedDate.bind(this);
@@ -26,40 +27,35 @@ class Calendar extends React.Component {
     const daysThisMonth = new Array(42).fill(0).map((day, index) => {
       let calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
 
+      let currentMonth = false;
       if (index < firstDayOfMonth) {
         calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
-      } else if (index >= firstDayOfMonth && index <= (daysInMonth + firstDayOfMonth)) {
+      } else if (index >= firstDayOfMonth && index < (daysInMonth + firstDayOfMonth)) {
         calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
+        currentMonth = true;
       } else {
-        calendarDate.setDate(viewDate.getDate() + (index) - firstDayOfMonth);
+        calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
       }
 
       var hasTodo = todos.some((todo) => {
         return (todo.date.valueOf() === calendarDate.valueOf());
-      })
+      });
 
       let currentDay = false;
-      let todayOrLater = false;
-      let dayPast = false;
 
       if (calendarDate.getMonth() === viewDate.getMonth()) {
-        if (calendarDate.getTime() >= (trueDate.getTime())) {
-          todayOrLater = true;
-          if (calendarDate.getTime() === trueDate.getTime()) {
-            currentDay = true;
-          }
-        } else {
-          dayPast = true;
+        if (calendarDate.getTime() === trueDate.getTime()) {
+          currentDay = true;
         }
       }
 
       return (
         <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
-          className={"calendar-day " +
-            (currentDay ? "current-day " : "" ) +
-            (todayOrLater ? "current-month " : "not-current-month ") +
-            (dayPast ? "day-past " : "") +
-            (hasTodo ? "has-todo " : "")}>
+          className={"calendar-day-mini " +
+            (currentDay ? "current-day-mini " : "" ) +
+            (currentMonth ? "current-month-mini " : "not-current-month-mini ") +
+            (hasTodo ? "has-todo-mini " : "")
+          }>
               {calendarDate.getDate()}
         </div>
       )
@@ -106,16 +102,16 @@ class Calendar extends React.Component {
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
 
     this.setState(function () {
-    return {
-      viewDate: newView
+      return {
+        viewDate: newView
       }
     })
   }
 
   renderDayNames() {
-    return this.props.dayNames.map((name) => {
+    return this.state.miniDays.map((name, index) => {
       return (
-        <th key={name} scope="col" className="th-day-name">{ name }</th>
+        <th key={index} scope="col" className="th-day-name-mini">{ name }</th>
       )
     })
   }
@@ -126,20 +122,20 @@ class Calendar extends React.Component {
     const currentMonth = this.props.monthNames[this.state.viewDate.getMonth()];
 
     return (
-      <div className="Calendar">
-        <h2>Calendar</h2>
+      <div className="CalendarMini">
+        <h2>Calendar Mini</h2>
 
-        <div className="year-month">
-          <div className='calendar-left' onClick={() => this.goBackInTime()}>
+        <div className="year-month-mini">
+          <div className='calendar-left-mini' onClick={() => this.goBackInTime()}>
             &#8678;
           </div>
             <h3>{currentMonth} {currentYear}</h3>
-          <div className='calendar-right' onClick={() => this.goForwardInTime()}>
+          <div className='calendar-right-mini' onClick={() => this.goForwardInTime()}>
             &#8680;
           </div>
         </div>
 
-        <table className='table-calendar'>
+        <table className='table-calendar-mini'>
           <tbody>
             <tr>
               {this.renderDayNames()}
@@ -193,4 +189,4 @@ class Calendar extends React.Component {
   }
 }
 
-module.exports = Calendar;
+module.exports = CalendarMini;
