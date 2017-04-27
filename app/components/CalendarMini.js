@@ -1,12 +1,12 @@
-var React = require('react');
-var PropTypes = require('prop-types');
+const React = require('react');
+const PropTypes = require('prop-types');
 
 class CalendarMini extends React.Component {
 
   constructor(props) {
     super(props);
 
-    var viewDate = new Date(); // current date with day set to first day of month
+    const viewDate = new Date(); // current date with day set to first day of month
     viewDate.setDate(1);
 
     this.state = {
@@ -14,11 +14,10 @@ class CalendarMini extends React.Component {
       miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
     };
 
-    this.props.updateSelectedDate.bind(this);
   }
 
   getCalendarDays() {
-    let {trueDate, todos} = this.props;
+    let {selectedDate, trueDate, todos} = this.props;
 
     const viewDate = this.state.viewDate;
     const firstDayOfMonth = this.getFirstDayOfMonth();
@@ -37,7 +36,8 @@ class CalendarMini extends React.Component {
         calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
       }
 
-      var hasTodo = todos.some((todo) => {
+      let isSelected = (calendarDate.getTime() === selectedDate.getTime());
+      let hasTodo = todos.some((todo) => {
         return (todo.date.valueOf() === calendarDate.valueOf());
       });
 
@@ -54,6 +54,7 @@ class CalendarMini extends React.Component {
           className={"calendar-day-mini " +
             (currentDay ? "current-day-mini " : "" ) +
             (currentMonth ? "current-month-mini " : "not-current-month-mini ") +
+            (isSelected ? "calendar-day-selected " : "") +
             (hasTodo ? "has-todo-mini " : "")
           }>
               {calendarDate.getDate()}

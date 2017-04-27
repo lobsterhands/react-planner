@@ -1,23 +1,23 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var CalendarMini = require('./CalendarMini');
-var CalendarDay = require('./CalendarDay');
-var CalendarWeek = require('./CalendarWeek');
-var CalendarMonth = require('./CalendarMonth');
-var CalendarYear = require('./CalendarYear');
-var CalendarViewButton = require('./CalendarViewButton');
-var Clock = require('./Clock');
-var Todos = require('./Todos');
+const React = require('react');
+const PropTypes = require('prop-types');
+const CalendarMini = require('./CalendarMini');
+const CalendarDay = require('./CalendarDay');
+const CalendarWeek = require('./CalendarWeek');
+const CalendarMonth = require('./CalendarMonth');
+const CalendarYear = require('./CalendarYear');
+const CalendarViewButton = require('./CalendarViewButton');
+const Clock = require('./Clock');
+const Todos = require('./Todos');
 
 class Planner extends React.Component {
 
   constructor() {
     super();
 
-    var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
+    let trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
     trueDate.setHours(0, 0, 0, 0);
 
-    var testDate = new Date();
+    let testDate = new Date();
     testDate.setHours(0,0,0,0);
     testDate.setDate(testDate.getDate() - 27);
 
@@ -35,6 +35,10 @@ class Planner extends React.Component {
           'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     }
+
+    this.updateSelectedDate = this.updateSelectedDate.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.updateTrueDate = this.updateTrueDate.bind(this);
   }
 
   updateSelectedDate(date) {
@@ -44,7 +48,7 @@ class Planner extends React.Component {
   }
 
   updateTrueDate() {
-    var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
+    const trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
     trueDate.setHours(0, 0, 0, 0);
 
     this.setState({
@@ -61,9 +65,9 @@ class Planner extends React.Component {
       });
 
       if (isActivityUnique) {
-        var todos = this.state.todos.slice();
+        const todos = this.state.todos.slice();
 
-        let date = new Date();
+        const date = new Date();
         date.setHours(0,0,0,0);
 
         todos.push({
@@ -98,7 +102,7 @@ class Planner extends React.Component {
         trueDate={trueDate}
         todos={todos}
         selectedDate={selectedDate}
-        updateSelectedDate={(date) => this.updateSelectedDate(date)}
+        updateSelectedDate={this.updateSelectedDate}
       />;
   } else if (calendarView === 'day') {
     calendar = <CalendarDay />;
@@ -111,7 +115,7 @@ class Planner extends React.Component {
     return (
       <div className="Planner">
         <h1>Planner</h1>
-        <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
+        <Clock monthNames={this.state.monthNames} updateTrueDate={this.updateTrueDate}/>
 
         <div className="planner-view-btn-container">
           <CalendarViewButton title={'Day'} calendarView={calendarView} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
@@ -121,15 +125,16 @@ class Planner extends React.Component {
         </div>
         <div className="planner-container">
           <CalendarMini
-            monthNames={monthNames}
             dayNames={dayNames}
+            monthNames={monthNames}
+            selectedDate={selectedDate}
             trueDate={trueDate}
             todos={todos}
-            updateSelectedDate={(date) => this.updateSelectedDate(date)}
+            updateSelectedDate={this.updateSelectedDate}
           />
           {/*<Todos
             todos={this.state.todos}
-            inputHandler={(e) => this.handleInput(e)}
+            inputHandler={this.handleInput}
             selectedDate={this.state.selectedDate}
           />
           */}

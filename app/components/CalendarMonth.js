@@ -1,19 +1,20 @@
-var React = require('react');
-var PropTypes = require('prop-types');
+const React = require('react');
+const PropTypes = require('prop-types');
 
 class CalendarMonth extends React.Component {
 
   constructor(props) {
     super(props);
 
-    var viewDate = new Date(); // current date with day set to first day of month
+    const viewDate = new Date(); // current date with day set to first day of month
     viewDate.setDate(1);
 
     this.state = {
       viewDate: viewDate
     };
 
-    this.props.updateSelectedDate.bind(this);
+    this.goBackInTime = this.goBackInTime.bind(this);
+    this.goForwardInTime = this.goForwardInTime.bind(this);
   }
 
   getCalendarDays() {
@@ -108,7 +109,7 @@ class CalendarMonth extends React.Component {
   renderDayNames() {
     return this.props.dayNames.map((name) => {
       return (
-        <th key={name} scope="col" className="th-day-name">{ name }</th>
+        <th key={name} scope="col" className="th-day-name">{name}</th>
       )
     })
   }
@@ -121,11 +122,11 @@ class CalendarMonth extends React.Component {
     return (
       <div className="Calendar">
         <div className="year-month">
-          <div className='calendar-left' onClick={() => this.goBackInTime()}>
+          <div className='calendar-left' onClick={this.goBackInTime}>
             &#8678;
           </div>
             <h3>{currentMonth} {currentYear}</h3>
-          <div className='calendar-right' onClick={() => this.goForwardInTime()}>
+          <div className='calendar-right' onClick={this.goForwardInTime}>
             &#8680;
           </div>
         </div>
