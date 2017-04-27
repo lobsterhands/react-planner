@@ -1,7 +1,10 @@
 /* root element selector (global scope), e.g. <html> */
 :root {
   /* CSS variables declarations */
-  --calendar-hover: #dddddd;
+  --calendar-hover: #DDD;
+  --color-honey: #FEE5AC;
+  --color-softblue: #acc5fe;
+  --calendar-day-border: #fff;
   --days-past: rgba(200, 150, 72, .4);
 }
 
@@ -174,32 +177,68 @@ h2 {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  border: 5px solid rgba(1, 21, 243, 0.8);
+  border: 3px solid var(--color-softblue);
 }
 
 .calendar-day {
   width: 70px;
   height: 90px;
+  font-size: 14px;
   cursor: pointer;
   text-align: left;
+  background: #eee;
+  color: #aaa;
+}
+
+.day-past {
+  background: var(--days-past);
+  color: #333;
+}
+
+.calendar-day-selected {
+  background: var(--calendar-hover);
 }
 
 .calendar-day:hover {
   background: var(--calendar-hover);
 }
 
-.calendar-day-selected {
-  background: black;
+.current-month {
+  background: var(--color-honey);
+  color: #000;
 }
 
-.current-month {
-  background: #f7ba07;
-}
+.current-month.calendar-day-selected {
+  background: var(--calendar-hover);
+  }
 
 .table-calendar {
   padding: 0;
   margin: 0;
   margin-top: 16px;
+  border-collapse: collapse;
+}
+
+.table-calendar p {
+  margin: 0;
+  padding: 4px 0 0 4px;
+}
+
+.th-day-name {
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.tr-calendar-days {
+  border-left: 1px solid var(--calendar-day-border);
+  border-bottom: 1px solid var(--calendar-day-border);
+}
+
+.table-calendar td {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--calendar-day-border);
+  border-right: 1px solid var(--calendar-day-border);
 }
 
 .not-current-month {
@@ -226,19 +265,6 @@ h2 {
 }
 .calendar-left {
   float: left;
-}
-
-th {
-  width: auto;
-}
-
-.th-day-name {
-  font-size: 12px;
-}
-
-.day-past {
-  background: var(--days-past);
-  color: #333;
 }
 
 .has-todo::after {

@@ -17,7 +17,7 @@ class Calendar extends React.Component {
   }
 
   getCalendarDays() {
-    let {trueDate, todos} = this.props;
+    let {trueDate, todos, selectedDate} = this.props;
 
     const viewDate = this.state.viewDate;
     const firstDayOfMonth = this.getFirstDayOfMonth();
@@ -26,41 +26,30 @@ class Calendar extends React.Component {
     const daysThisMonth = new Array(42).fill(0).map((day, index) => {
       let calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
 
+      let currentMonth = false;
       if (index < firstDayOfMonth) {
         calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
-      } else if (index >= firstDayOfMonth && index <= (daysInMonth + firstDayOfMonth)) {
-        calendarDate.setDate(viewDate.getDate() + (index - firstDayOfMonth));
+      } else if (index >= firstDayOfMonth && index < (daysInMonth + firstDayOfMonth)) {
+        calendarDate.setDate(viewDate.getDate() + index - firstDayOfMonth);
+        currentMonth = true;
       } else {
-        calendarDate.setDate(viewDate.getDate() + (index) - firstDayOfMonth);
+        calendarDate.setDate(viewDate.getDate() + index - firstDayOfMonth);
       }
 
-      var hasTodo = todos.some((todo) => {
+      let isCurrentDay = (calendarDate.getTime() === trueDate.getTime());
+      let isSelected = (calendarDate.getTime() === selectedDate.getTime());
+      let hasTodo = todos.some((todo) => {
         return (todo.date.valueOf() === calendarDate.valueOf());
       })
-
-      let currentDay = false;
-      let todayOrLater = false;
-      let dayPast = false;
-
-      if (calendarDate.getMonth() === viewDate.getMonth()) {
-        if (calendarDate.getTime() >= (trueDate.getTime())) {
-          todayOrLater = true;
-          if (calendarDate.getTime() === trueDate.getTime()) {
-            currentDay = true;
-          }
-        } else {
-          dayPast = true;
-        }
-      }
 
       return (
         <div key={calendarDate} onClick={() => this.handleClick(calendarDate)}
           className={"calendar-day " +
-            (currentDay ? "current-day " : "" ) +
-            (todayOrLater ? "current-month " : "not-current-month ") +
-            (dayPast ? "day-past " : "") +
-            (hasTodo ? "has-todo " : "")}>
-              {calendarDate.getDate()}
+            (isCurrentDay ? "current-day " : "" ) +
+            (currentMonth ? "current-month " : " ") +
+            (hasTodo ? "has-todo " : "") +
+            (isSelected ? "calendar-day-selected " : "")}>
+            <p>{calendarDate.getDate()}</p>
         </div>
       )
     })
@@ -69,15 +58,7 @@ class Calendar extends React.Component {
   }
 
   handleClick(date) {
-    console.log(event.target);
-    console.log('date',date);
-
     this.props.updateSelectedDate(date);
-    // this.addClassSelected(e.target);
-  }
-
-  addClassSelected(targetElem) {
-    targetElem.className += "calendar-day-selected ";
   }
 
   getFirstDayOfMonth() {
@@ -154,42 +135,42 @@ class Calendar extends React.Component {
             <tr>
               {this.renderDayNames()}
             </tr>
-            <tr>
+            <tr className="tr-calendar-days">
               {calendarDays.filter((elem, index) => {
                 return index < 7;
               }).map((elem, index) => {
-                return <td key={index}>{elem}</td>;
+                return <td  key={index}>{elem}</td>;
               })}
             </tr>
-            <tr>
+            <tr className="tr-calendar-days">
               {calendarDays.filter((elem, index) => {
                 return index >= 7 && index < 14;
               }).map((elem, index) => {
                 return <td key={index}>{elem}</td>;
               })}
             </tr>
-            <tr>
+            <tr className="tr-calendar-days">
               {calendarDays.filter((elem, index) => {
                 return index >= 14 && index < 21;
               }).map((elem, index) => {
                 return <td key={index}>{elem}</td>;
               })}
             </tr>
-            <tr>
+            <tr className="tr-calendar-days">
               {calendarDays.filter((elem, index) => {
                 return index >= 21 && index < 28;
               }).map((elem, index) => {
                 return <td key={index}>{elem}</td>;
               })}
             </tr>
-            <tr>
+            <tr className="tr-calendar-days">
               {calendarDays.filter((elem, index) => {
                 return index >= 28 && index < 35;
               }).map((elem, index) => {
                 return <td key={index}>{elem}</td>;
               })}
             </tr>
-            <tr>
+            <tr className="tr-calendar-days">
               {calendarDays.filter((elem, index) => {
                 return index >= 35 && index < 42;
               }).map((elem, index) => {

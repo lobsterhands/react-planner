@@ -38,22 +38,18 @@ class Planner extends React.Component {
   }
 
   updateSelectedDate(date) {
-    this.setState(function() {
-      return {
-        selectedDate: date
-      }
-    })
+    this.setState({
+      selectedDate: date
+    });
   }
 
   updateTrueDate() {
     var trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
     trueDate.setHours(0, 0, 0, 0);
 
-    this.setState(function () {
-      return {
-        trueDate: trueDate
-      }
-    })
+    this.setState({
+      trueDate: trueDate
+    });
   }
 
   handleInput(e) {
@@ -75,11 +71,9 @@ class Planner extends React.Component {
           date: date
         });
 
-        this.setState(function () {
-          return {
-            todos: todos
-          }
-        })
+        this.setState({
+          todos: todos
+        });
 
       } else {
         alert('That activity already exists in your todo list.');
@@ -95,7 +89,7 @@ class Planner extends React.Component {
   }
 
   render() {
-    const { calendarView, dayNames, monthNames, todos, trueDate } = this.state;
+    const { calendarView, dayNames, monthNames, selectedDate, todos, trueDate } = this.state;
     let calendar = null;
     if (calendarView === 'month') {
       calendar = <CalendarMonth
@@ -103,6 +97,7 @@ class Planner extends React.Component {
         dayNames={dayNames}
         trueDate={trueDate}
         todos={todos}
+        selectedDate={selectedDate}
         updateSelectedDate={(date) => this.updateSelectedDate(date)}
       />;
   } else if (calendarView === 'day') {
