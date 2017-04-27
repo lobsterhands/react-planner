@@ -123,8 +123,6 @@ class CalendarMini extends React.Component {
 
     return (
       <div className="CalendarMini">
-        <h2>Calendar Mini</h2>
-
         <div className="year-month-mini">
           <div className='calendar-left-mini' onClick={() => this.goBackInTime()}>
             &#8678;

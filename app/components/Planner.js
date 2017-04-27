@@ -117,24 +117,29 @@ class Planner extends React.Component {
       <div className="Planner">
         <h1>Planner</h1>
         <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
-        <CalendarMini
-          monthNames={monthNames}
-          dayNames={dayNames}
-          trueDate={trueDate}
-          todos={todos}
-          updateSelectedDate={(date) => this.updateSelectedDate(date)}
-        />
-      {/*<Todos
-          todos={this.state.todos}
-          inputHandler={(e) => this.handleInput(e)}
-          selectedDate={this.state.selectedDate}
-        />
-        */}
-        <CalendarViewButton title={'Day'} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
-        <CalendarViewButton title={'Week'} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
-        <CalendarViewButton title={'Month'} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
-        <CalendarViewButton title={'Year'} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
-        {calendar}
+
+        <div className="planner-calendar-btns">
+          <CalendarViewButton title={'Day'} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
+          <CalendarViewButton title={'Week'} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
+          <CalendarViewButton title={'Month'} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
+          <CalendarViewButton title={'Year'} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
+        </div>
+        <div className="planner-container">
+          <CalendarMini
+            monthNames={monthNames}
+            dayNames={dayNames}
+            trueDate={trueDate}
+            todos={todos}
+            updateSelectedDate={(date) => this.updateSelectedDate(date)}
+          />
+          {/*<Todos
+            todos={this.state.todos}
+            inputHandler={(e) => this.handleInput(e)}
+            selectedDate={this.state.selectedDate}
+          />
+          */}
+          {calendar}
+        </div>
       </div>
     )
   }

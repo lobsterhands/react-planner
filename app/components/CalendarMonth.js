@@ -139,8 +139,6 @@ class Calendar extends React.Component {
 
     return (
       <div className="Calendar">
-        <h2>Calendar</h2>
-
         <div className="year-month">
           <div className='calendar-left' onClick={() => this.goBackInTime()}>
             &#8678;

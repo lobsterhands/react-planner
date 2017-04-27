@@ -62,6 +62,11 @@ h2 {
   border: 1px solid black;
 }
 
+.planner-container {
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
 /*===Clock===*/
 .Clock {
 }
@@ -69,6 +74,7 @@ h2 {
 /*===CalendarMini===*/
 .CalendarMini {
   margin: 0 auto;
+  margin-top: 10px;
   float: left;
   width: 188px;
 }
@@ -140,6 +146,7 @@ h2 {
 /*===CalendarMonth===*/
 .Calendar {
   margin: 0 auto;
+  margin-top: 16px;
   cursor: default;
 }
 
