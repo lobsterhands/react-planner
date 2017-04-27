@@ -1,7 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 
-class Calendar extends React.Component {
+class CalendarMonth extends React.Component {
 
   constructor(props) {
     super(props);
@@ -184,4 +184,17 @@ class Calendar extends React.Component {
   }
 }
 
-module.exports = Calendar;
+CalendarMonth.propTypes = {
+  trueDate: PropTypes.instanceOf(Date).isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
+  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      activity: PropTypes.string,
+      date: PropTypes.instanceOf(Date)
+    })
+  ).isRequired
+}
+
+module.exports = CalendarMonth;
