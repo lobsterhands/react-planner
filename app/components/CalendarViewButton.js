@@ -6,8 +6,13 @@ class CalendarViewButton extends React.Component {
   }
 
   render() {
+    const {calendarView, viewCommand} = this.props;
+    let isSelected = viewCommand === calendarView;
+
     return (
-      <button onClick={() => this.props.updateView(this.props.viewCommand)}>
+      <button className=
+        {"planner-view-btn " + (isSelected ? "planner-view-btn-active" : "")}
+        onClick={() => this.props.updateView(this.props.viewCommand)}>
         {this.props.title}
       </button>
     )

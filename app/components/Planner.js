@@ -118,11 +118,11 @@ class Planner extends React.Component {
         <h1>Planner</h1>
         <Clock monthNames={this.state.monthNames} updateTrueDate={() => this.updateTrueDate()}/>
 
-        <div className="planner-calendar-btns">
-          <CalendarViewButton title={'Day'} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
-          <CalendarViewButton title={'Week'} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
-          <CalendarViewButton title={'Month'} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
-          <CalendarViewButton title={'Year'} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
+        <div className="planner-view-btn-container">
+          <CalendarViewButton title={'Day'} calendarView={calendarView} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
+          <CalendarViewButton title={'Week'} calendarView={calendarView} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
+          <CalendarViewButton title={'Month'} calendarView={calendarView} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
+          <CalendarViewButton title={'Year'} calendarView={calendarView} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
         </div>
         <div className="planner-container">
           <CalendarMini
