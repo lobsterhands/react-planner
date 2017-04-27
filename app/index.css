@@ -147,6 +147,10 @@ h2 {
   color: #ddd;
 }
 
+.calendar-day-mini.calendar-day-selected {
+  background: #eee;;
+}
+
 .table-calendar-mini {
   padding: 0;
   margin: 0 auto;
