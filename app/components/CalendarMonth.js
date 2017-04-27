@@ -54,7 +54,7 @@ class Calendar extends React.Component {
       }
 
       return (
-        <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
+        <div key={calendarDate} onClick={() => this.handleClick(calendarDate)}
           className={"calendar-day " +
             (currentDay ? "current-day " : "" ) +
             (todayOrLater ? "current-month " : "not-current-month ") +
@@ -66,6 +66,18 @@ class Calendar extends React.Component {
     })
 
     return daysThisMonth;
+  }
+
+  handleClick(date) {
+    console.log(event.target);
+    console.log('date',date);
+
+    this.props.updateSelectedDate(date);
+    // this.addClassSelected(e.target);
+  }
+
+  addClassSelected(targetElem) {
+    targetElem.className += "calendar-day-selected ";
   }
 
   getFirstDayOfMonth() {

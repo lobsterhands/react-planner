@@ -70,6 +70,7 @@ h2 {
 .CalendarMini {
   margin: 0 auto;
   float: left;
+  width: 188px;
 }
 
 .year-month-mini {
@@ -158,6 +159,10 @@ h2 {
 
 .calendar-day:hover {
   background: var(--calendar-hover);
+}
+
+.calendar-day-selected {
+  background: black;
 }
 
 .current-month {
