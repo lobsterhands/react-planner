@@ -10,7 +10,8 @@ Coming soon...
 
 ## Development and Build Process
 
-To start the development server, run `npm run start`. `src/` files can be edited. Webpack outputs to the 'dist/'.
+To start the development server, run `npm run start`. `src/` files can be edited.
+'build/' and 'dist/' coming.
 
 | Command | Description |
 | ------- | ----------- |
