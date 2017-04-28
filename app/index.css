@@ -63,7 +63,7 @@ h2 {
 .Planner {
   text-align: center;
   margin: 0 auto;
-  width: 1200px;
+  width: 1400px;
   min-width: 900px;
   position: absolute;
   border: 1px solid black;
@@ -169,6 +169,22 @@ h2 {
 
 .has-todo-mini.not-current-month-mini {
   color: #bbb;
+}
+
+/*===CalendarWeek===*/
+.CalendarWeek {
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+.day-names th {
+  width: 144px;
+}
+
+.CalendarWeek.table-calendar.tr-calendar {
+  border: 1px solid black;
+  width: 10px;
+  height: 10px;
 }
 
 /*===CalendarMonth===*/
