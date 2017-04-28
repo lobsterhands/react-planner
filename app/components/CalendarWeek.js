@@ -1,19 +1,45 @@
-var React = require('react');
+const React = require('react');
+const PropTypes = require('prop-types');
+const ScheduleRow = require('./ScheduleRow');
 
 class CalendarWeek extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      viewDate: this.props.selectedDate
+    }
+
+    this.goBackInTime = this.goBackInTime.bind(this);
+    this.goForwardInTime = this.goForwardInTime.bind(this);
+  }
+
+  goBackInTime() {
+    const {viewDate} = this.state;
+    const newViewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate() - 7);
+
+    this.setState({
+      viewDate: newViewDate
+    });
+  }
+
+  goForwardInTime() {
+    const {viewDate} = this.state;
+    const newViewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate() + 7);
+
+    this.setState({
+      viewDate: newViewDate
+    });
   }
 
   getWeekDates() {
-    const {selectedDate} = this.props;
-    const currentDate = selectedDate.getDate(); // 1-31
-    const currentDay = selectedDate.getDay(); // 0-6
+    const {viewDate} = this.state;
+    const currentDate = viewDate.getDate(); // 1-31
+    const currentDay = viewDate.getDay(); // 0-6
 
     const weekDates = new Array(7).fill(0).map((elem, index) => {
       let weekDate = new Date(
-        selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()
+        viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate()
       );
         weekDate.setDate(weekDate.getDate() - (currentDay - index));
         return weekDate;
@@ -42,10 +68,11 @@ class CalendarWeek extends React.Component {
   }
 
   render() {
+    const {dayNames} = this.props;
     const viewWeek = this.getWeekDates();
     const fromDayToDay = this.getFromDayToDay(viewWeek);
 
-      return (
+    return (
       <div className="CalendarWeek">
         <div className="year-month">
           <div className='calendar-left' onClick={this.goBackInTime}>
@@ -56,6 +83,24 @@ class CalendarWeek extends React.Component {
             &#8680;
           </div>
         </div>
+        <table className='table-calendar-week'>
+          <tbody>
+            <tr className='day-names'>
+              {dayNames.map((day, index) => {
+                const viewDay = viewWeek[index];
+                const dayOfMonth = viewDay.getDate();
+                const monthNum = (viewDay.getMonth() + 1);
+                return (
+                  <th key={day} scope="col" className="th-day-name">
+                    {day} {monthNum}/{dayOfMonth}
+                  </th>
+                )
+              })}
+            </tr>
+            <tr>
+            </tr>
+          </tbody>
+        </table>
       </div>
     )
   }
