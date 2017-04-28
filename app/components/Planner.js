@@ -107,7 +107,14 @@ class Planner extends React.Component {
   } else if (calendarView === 'day') {
     calendar = <CalendarDay />;
   } else if (calendarView === 'week') {
-    calendar = <CalendarWeek />;
+    calendar = <CalendarWeek
+      monthNames={monthNames}
+      dayNames={dayNames}
+      trueDate={trueDate}
+      todos={todos}
+      selectedDate={selectedDate}
+      updateSelectedDate={this.updateSelectedDate}
+    />;
   } else if (calendarView === 'year') {
     calendar = <CalendarYear />;
   }
