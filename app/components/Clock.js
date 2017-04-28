@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 class Clock extends React.Component {
 
@@ -18,11 +18,11 @@ class Clock extends React.Component {
   }
 
   tick() {
-    var date = new Date();
+    const date = new Date();
 
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds(); // Update Planner's trueDate at Midnight
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    const sec = date.getSeconds(); // Update Planner's trueDate at Midnight
     if (hour === 0 && hour === min && min === sec) {
       this.props.updateTrueDate();
     }

@@ -1,5 +1,5 @@
-var React = require('react');
-var Planner = require('./Planner');
+const React = require('react');
+const Planner = require('./Planner');
 
 class App extends React.Component {
   render() {
