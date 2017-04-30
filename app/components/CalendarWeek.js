@@ -1,6 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const ScheduleRow = require('./ScheduleRow');
+const ScheduleData = require('./ScheduleData');
+const TimeSliceHeader = require('./TimeSliceHeader');
 
 class CalendarWeek extends React.Component {
   constructor(props) {
@@ -48,6 +49,39 @@ class CalendarWeek extends React.Component {
     return weekDates;
   }
 
+  renderRows(viewWeek) {
+    const NUM_HALF_HRS_IN_DAY = 48;
+    const {timeIncrements, todos, trueDate} = this.props;
+
+    const sun = viewWeek[0];
+    const mon = viewWeek[1];
+    const tue = viewWeek[2];
+    const wed = viewWeek[3];
+    const thu = viewWeek[4];
+    const fri = viewWeek[5];
+    const sat = viewWeek[6];
+
+    let rowContainer = new Array(NUM_HALF_HRS_IN_DAY).fill(0).map((day, index) => {
+
+      const timeSlice = timeIncrements[index];
+      let keyHelper = 1;
+      return (
+        <tr className={"calendar-schedule-row"} key={index}>
+          <TimeSliceHeader key={timeSlice} timeSlice={timeSlice} />
+          <ScheduleData date={sun} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={mon} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={tue} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={wed} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={thu} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={fri} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={sat} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+        </tr>
+      )
+    })
+
+    return rowContainer;
+  }
+
   getFromDayToDay(viewWeek) {
     const {monthNames} = this.props;
 
@@ -86,6 +120,7 @@ class CalendarWeek extends React.Component {
         <table className='table-calendar-week'>
           <tbody>
             <tr className='day-names'>
+              <th></th>
               {dayNames.map((day, index) => {
                 const viewDay = viewWeek[index];
                 const dayOfMonth = viewDay.getDate();
@@ -97,8 +132,7 @@ class CalendarWeek extends React.Component {
                 )
               })}
             </tr>
-            <tr>
-            </tr>
+            {this.renderRows(viewWeek)}
           </tbody>
         </table>
       </div>
