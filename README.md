@@ -1,4 +1,4 @@
-# React-Calendar
+# React-Planner
 
 ## About
 

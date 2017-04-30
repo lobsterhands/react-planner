@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 class CalendarViewButton extends React.Component {
   constructor(props) {

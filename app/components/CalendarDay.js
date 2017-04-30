@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 class CalendarDay extends React.Component {
   constructor(props) {

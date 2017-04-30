@@ -63,10 +63,9 @@ h2 {
 .Planner {
   text-align: center;
   margin: 0 auto;
-  width: 1200px;
+  width: 1400px;
   min-width: 900px;
   position: absolute;
-  border: 1px solid black;
 }
 
 .planner-container {
@@ -114,7 +113,8 @@ h2 {
   display: inline;
 }
 
-.calendar-left-mini, .calendar-right-mini {
+.calendar-left-mini,
+.calendar-right-mini {
   cursor: pointer;
   padding: 6px;
 }
@@ -169,6 +169,55 @@ h2 {
 
 .has-todo-mini.not-current-month-mini {
   color: #bbb;
+}
+
+/*===CalendarWeek===*/
+.CalendarWeek {
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+.day-names th {
+  width: 144px;
+}
+
+.CalendarWeek.table-calendar.tr-calendar {
+  border: 1px solid black;
+  width: 10px;
+  height: 10px;
+}
+
+.table-calendar-week {
+  padding: 0;
+  margin: 0;
+  margin-top: 16px;
+  border-collapse: collapse;
+}
+
+.time-slice-header {
+  padding-right: 10px;
+  font-size: 12px;
+  text-align: right;
+}
+
+.calendar-schedule-row td {
+  border: 1px solid #ddd;
+  height: 20px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 4px;
+}
+
+/*===ScheduleDate===*/
+.schedule-activity {
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.schedule-activity.current-day {
+  background: #eff;
 }
 
 /*===CalendarMonth===*/
