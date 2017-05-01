@@ -203,7 +203,7 @@ h2 {
 .calendar-schedule-row td {
   border: 1px solid #ddd;
   height: 20px;
-  max-width: 100px;
+  max-width: 100px; /* Why does the value not matter? */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -214,6 +214,7 @@ h2 {
 .schedule-activity {
   font-size: 12px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .schedule-activity.current-day {
