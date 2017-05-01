@@ -11,9 +11,10 @@ class ScheduleData extends React.Component {
     });
     const [todo] = todayTodos;
 
-
     return (
-        <td className={"schedule-activity " + (isCurrentDay ? "current-day " : "")}>{(todo ? todo.activity : '')}</td>
+        <td className={"schedule-activity " + (isCurrentDay ? "current-day " : "")} onClick={() => console.log(date, timeSlice)}>
+          {(todo ? todo.activity : '')}
+        </td>
     )
   }
 }
