@@ -53,13 +53,7 @@ class CalendarWeek extends React.Component {
     const NUM_HALF_HRS_IN_DAY = 48;
     const {timeIncrements, todos, trueDate} = this.props;
 
-    const sun = viewWeek[0];
-    const mon = viewWeek[1];
-    const tue = viewWeek[2];
-    const wed = viewWeek[3];
-    const thu = viewWeek[4];
-    const fri = viewWeek[5];
-    const sat = viewWeek[6];
+    const [sun, mon, tue, wed, thu, fri, sat] = viewWeek;
 
     let rowContainer = new Array(NUM_HALF_HRS_IN_DAY).fill(0).map((day, index) => {
 
