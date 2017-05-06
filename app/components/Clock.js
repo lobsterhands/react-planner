@@ -39,8 +39,8 @@ class Clock extends React.Component {
 
     return (
       <div>
-        <h2>Current Date: {currentDate} {currentMonth} {currentYear}</h2>
-        <h2>Current Local Time: {this.state.date.toLocaleTimeString()}</h2>
+        <h2>{currentDate} {currentMonth} {currentYear}</h2>
+        <h2>{this.state.date.toLocaleTimeString()}</h2>
       </div>
     )
   }

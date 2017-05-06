@@ -4,9 +4,7 @@ const Planner = require('./Planner');
 class App extends React.Component {
   render() {
     return (
-      <div className='container'>
-        <Planner />
-      </div>
+      <Planner />
     )
   }
 }

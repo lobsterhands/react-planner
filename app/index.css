@@ -19,21 +19,50 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, SegoeU UI, Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, SegoeU UI, Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+  margin: 0;
 }
 
 button {
   outline: none;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+h1, h2 {
+  padding: 0;
+  margin: 0;
 }
 
 h2 {
   text-align: center;
+}
+
+.header {
+  width: 100%;
+  background: #4AC7F3;
+  margin: 0;
+}
+
+.header h1, h2 {
+  padding: 4px 0;
+  font-weight: 400;
+}
+
+.title {
+  padding-top: 10px;
+  font-weight: 200;
+}
+
+.separator {
+  height: 20px;
+  margin-bottom: 20px;
+  background: #26272A;
+}
+
+.calendar-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /*===Todos===*/
@@ -44,13 +73,13 @@ h2 {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   text-align: center;
-  float: left;
+  /*float: left;*/
   margin: 0 auto;
 }
 
 .todo {
   cursor: pointer;
-  float: left;
+  /*float: left;*/
   clear: both;
   margin: 0 0 6px 0;
   padding: 0 10px 0 4px;
@@ -63,19 +92,18 @@ h2 {
 .Planner {
   text-align: center;
   margin: 0 auto;
-  width: 1400px;
   min-width: 900px;
-  position: absolute;
 }
 
 .planner-container {
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
   margin-top: 16px;
 }
 
 .planner-view-btn-container {
-  float: right;
-  margin-right: 16.333%;
+  /*float: right;*/
+  /*margin-right: 16.333%;*/
 }
 
 .planner-view-btn {
@@ -98,7 +126,7 @@ h2 {
 .CalendarMini {
   margin: 0 auto;
   margin-top: 10px;
-  float: left;
+  /*float: left;*/
   width: 188px;
 }
 
@@ -223,7 +251,6 @@ h2 {
 
 /*===CalendarMonth===*/
 .Calendar {
-  margin: 0 auto;
   margin-top: 16px;
 }
 
@@ -313,7 +340,6 @@ h2 {
   cursor: pointer;
   padding: 6px;
 }
-
 .calendar-right {
   float: right;
 }
@@ -321,35 +347,8 @@ h2 {
   float: left;
 }
 
-.has-todo::after {
-  display: block;
-  content: "\25A1";
-}
-
-.todos-show-all {
-  margin-bottom: 40px;
-}
-
-@media only screen and (min-width : 600px) and (max-width : 1099px) {
-  .calendar-day {
-    width: 80px;
-    height: 90px;
-    cursor: pointer;
-  }
-}
-
-@media only screen and (min-width : 1100px) and (max-width : 1199px) {
-  .calendar-day {
-    width: 100px;
-    height: 90px;
-    cursor: pointer;
-  }
-}
-
-@media only screen and (min-width : 1200px) {
-  .calendar-day {
-    width: 114px;
-    height: 90px;
-    cursor: pointer;
-  }
+.calendar-day {
+  width: 114px;
+  height: 90px;
+  cursor: pointer;
 }

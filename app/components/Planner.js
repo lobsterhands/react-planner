@@ -136,8 +136,11 @@ class Planner extends React.Component {
 
     return (
       <div className="Planner">
-        <h1>Planner</h1>
-        <Clock monthNames={this.state.monthNames} updateTrueDate={this.updateTrueDate}/>
+        <div className='header'>
+          <h1 className='title'>React Planner</h1>
+          <Clock monthNames={this.state.monthNames} updateTrueDate={this.updateTrueDate}/>
+        </div>
+        <div className='separator'></div>
 
         <div className="planner-view-btn-container">
           <CalendarViewButton title={'Day'} calendarView={calendarView} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
@@ -145,21 +148,18 @@ class Planner extends React.Component {
           <CalendarViewButton title={'Month'} calendarView={calendarView} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
           <CalendarViewButton title={'Year'} calendarView={calendarView} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
         </div>
-        <div className="planner-container">
-          <CalendarMini
-            dayNames={dayNames}
-            monthNames={monthNames}
-            selectedDate={selectedDate}
-            trueDate={trueDate}
-            todos={todos}
-            updateSelectedDate={this.updateSelectedDate}
-          />
-          {/*<Todos
-            todos={this.state.todos}
-            inputHandler={this.handleInput}
-            selectedDate={this.state.selectedDate}
-          />
-          */}
+
+        <div className="calendar-container">
+          <div className="planner-container">
+            <CalendarMini
+              dayNames={dayNames}
+              monthNames={monthNames}
+              selectedDate={selectedDate}
+              trueDate={trueDate}
+              todos={todos}
+              updateSelectedDate={this.updateSelectedDate}
+            />
+          </div>
           {calendar}
         </div>
       </div>
