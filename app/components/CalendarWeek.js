@@ -50,25 +50,22 @@ class CalendarWeek extends React.Component {
   }
 
   renderRows(viewWeek) {
-    const NUM_HALF_HRS_IN_DAY = 48;
     const {timeIncrements, todos, trueDate} = this.props;
 
     const [sun, mon, tue, wed, thu, fri, sat] = viewWeek;
 
-    let rowContainer = new Array(NUM_HALF_HRS_IN_DAY).fill(0).map((day, index) => {
+    let rowContainer = timeIncrements.map((timeSlice, index) => {
 
-      const timeSlice = timeIncrements[index];
-      let keyHelper = 1;
       return (
         <tr className={"calendar-schedule-row"} key={index}>
           <TimeSliceHeader key={timeSlice} timeSlice={timeSlice} />
-          <ScheduleData date={sun} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
-          <ScheduleData date={mon} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
-          <ScheduleData date={tue} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
-          <ScheduleData date={wed} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
-          <ScheduleData date={thu} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
-          <ScheduleData date={fri} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
-          <ScheduleData date={sat} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={index + (keyHelper++)} />
+          <ScheduleData date={sun} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 1} />
+          <ScheduleData date={mon} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 2} />
+          <ScheduleData date={tue} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 3} />
+          <ScheduleData date={wed} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 4} />
+          <ScheduleData date={thu} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 5} />
+          <ScheduleData date={fri} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 6} />
+          <ScheduleData date={sat} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 7} />
         </tr>
       )
     })
