@@ -14,15 +14,28 @@ class Planner extends React.Component {
   constructor() {
     super();
 
-    let trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
+    const trueDate = new Date(); // current date with hr, min, sec, ms zeroed out
     trueDate.setHours(0, 0, 0, 0);
 
-    let testDate = new Date();
+    const viewDate = new Date(); // current date with day set to first day of month
+    viewDate.setHours(0, 0, 0, 0);
+
+    const testDate = new Date();
     testDate.setHours(0,0,0,0);
 
-    let testDate2 = new Date();
+    const testDate2 = new Date();
     testDate2.setHours(0,0,0,0);
     testDate2.setDate(testDate.getDate() + 2);
+
+    const currentDate = trueDate.getDate(); // 1-31
+    const currentDay = trueDate.getDay(); // 0-6
+    const viewWeek = new Array(7).fill(0).map((elem, index) => {
+      let weekDate = new Date(
+        trueDate.getFullYear(), trueDate.getMonth(), trueDate.getDate()
+      );
+        weekDate.setDate(weekDate.getDate() - (currentDay - index));
+        return weekDate;
+    });
 
     this.state = {
       trueDate: trueDate,
@@ -39,20 +52,25 @@ class Planner extends React.Component {
           time: '12pm'
         }
       ),
-      calendarView: 'month',
+      calendarView: 'week',
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
+      monthNamesAbbr: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       timeIncrements: ['12am', '12:30am', '1am', '1:30am','2am', '2:30am','3am', '3:30am','4am', '4:30am',
-                        '5am', '5:30am','6am', '6:30am','7am', '7:30am','8am', '8:30am','9am', '9:30am',
-                        '10am', '10:30am','11am', '11:30am','12pm', '12:30pm', '1pm', '1:30pm','2pm',
-                        '2:30pm','3pm', '3:30pm','4pm', '4:30pm', '5pm', '5:30pm','6pm', '6:30pm','7pm',
-                        '7:30pm','8pm', '8:30pm','9pm', '9:30pm','10pm', '10:30pm','11pm', '11:30pm'],
+        '5am', '5:30am','6am', '6:30am','7am', '7:30am','8am', '8:30am','9am', '9:30am',
+        '10am', '10:30am','11am', '11:30am','12pm', '12:30pm', '1pm', '1:30pm','2pm',
+        '2:30pm','3pm', '3:30pm','4pm', '4:30pm', '5pm', '5:30pm','6pm', '6:30pm','7pm',
+        '7:30pm','8pm', '8:30pm','9pm', '9:30pm','10pm', '10:30pm','11pm', '11:30pm'],
+      viewDate: viewDate,
+      viewWeek: viewWeek
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.updateSelectedDate = this.updateSelectedDate.bind(this);
     this.updateTrueDate = this.updateTrueDate.bind(this);
+    this.updateViewDate = this.updateViewDate.bind(this);
+    this.updateViewWeek = this.updateViewWeek.bind(this);
   }
 
   updateSelectedDate(date) {
@@ -68,6 +86,19 @@ class Planner extends React.Component {
     this.setState({
       trueDate: trueDate
     });
+  }
+
+  updateViewDate(date) {
+    this.setState({
+      viewDate: date
+    })
+  }
+
+  updateViewWeek(viewWeek) {
+    this.setState({
+      viewDate: viewWeek[3],
+      viewWeek: viewWeek
+    })
   }
 
   handleInput(e) {
@@ -107,7 +138,8 @@ class Planner extends React.Component {
   }
 
   render() {
-    const {calendarView, dayNames, monthNames, selectedDate, timeIncrements, todos, trueDate} = this.state;
+    const {calendarView, dayNames, monthNames, monthNamesAbbr, selectedDate,
+      timeIncrements, todos, trueDate, viewDate, viewWeek} = this.state;
     let calendar = null;
     if (calendarView === 'month') {
       calendar = <CalendarMonth
@@ -117,18 +149,22 @@ class Planner extends React.Component {
         todos={todos}
         selectedDate={selectedDate}
         updateSelectedDate={this.updateSelectedDate}
+        updateViewDate={this.updateViewDate}
+        viewDate={viewDate}
       />;
   } else if (calendarView === 'day') {
     calendar = <CalendarDay />;
   } else if (calendarView === 'week') {
     calendar = <CalendarWeek
-      monthNames={monthNames}
       dayNames={dayNames}
+      monthNamesAbbr={monthNamesAbbr}
       selectedDate={selectedDate}
       timeIncrements={timeIncrements}
       trueDate={trueDate}
       todos={todos}
+      updateViewWeek={this.updateViewWeek}
       updateSelectedDate={this.updateSelectedDate}
+      viewWeek={viewWeek}
     />;
   } else if (calendarView === 'year') {
     calendar = <CalendarYear />;
@@ -158,6 +194,9 @@ class Planner extends React.Component {
               trueDate={trueDate}
               todos={todos}
               updateSelectedDate={this.updateSelectedDate}
+              updateViewDate={this.updateViewDate}
+              viewDate={viewDate}
+              viewWeek={(calendarView === 'week' ? viewWeek : null)}
             />
           </div>
           {calendar}
