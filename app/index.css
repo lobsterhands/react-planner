@@ -2,6 +2,7 @@
 :root {
   /* CSS variables declarations */
   --calendar-hover: #DDD;
+  --calendar-selected: #acc5fe;
   --color-honey: #FEE5AC;
   --color-softblue: #acc5fe;
   --calendar-day-border: #fff;
@@ -175,10 +176,6 @@ h2 {
   color: #ddd;
 }
 
-.calendar-day-mini.calendar-day-selected {
-  background: #eee;;
-}
-
 .table-calendar-mini {
   padding: 0;
   margin: 0 auto;
@@ -271,15 +268,6 @@ h2 {
   color: #aaa;
 }
 
-.day-past {
-  background: var(--days-past);
-  color: #333;
-}
-
-.calendar-day-selected {
-  background: var(--calendar-hover);
-}
-
 .calendar-day:hover {
   background: var(--calendar-hover);
 }
@@ -289,9 +277,10 @@ h2 {
   color: #000;
 }
 
-.current-month.calendar-day-selected {
-  background: var(--calendar-hover);
-  }
+.current-month.calendar-day-selected,
+.calendar-day-mini.calendar-day-selected {
+  background: var(--calendar-selected);
+}
 
 .table-calendar {
   padding: 0;
@@ -320,11 +309,6 @@ h2 {
   padding: 0;
   border-top: 1px solid var(--calendar-day-border);
   border-right: 1px solid var(--calendar-day-border);
-}
-
-.not-current-month {
-  background: #eee;
-  color: #aaa;
 }
 
 .year-month {
