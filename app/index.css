@@ -268,10 +268,6 @@ h2 {
   color: #aaa;
 }
 
-.calendar-day:hover {
-  background: var(--calendar-hover);
-}
-
 .current-month {
   background: var(--color-honey);
   color: #000;
