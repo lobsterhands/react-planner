@@ -13,8 +13,16 @@ class CalendarMini extends React.Component {
       viewDate: viewDate,
       miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
     };
+  }
 
-    this.handleClickSelectDate = this.handleClickSelectDate.bind(this);
+  componentWillReceiveProps(nextProps) {
+    const {selectedDate} = nextProps;
+    const viewDate = new Date(selectedDate.getTime());
+    viewDate.setDate(1);
+
+    this.setState({
+      viewDate: viewDate
+    })
   }
 
   getCalendarDays() {
@@ -51,7 +59,7 @@ class CalendarMini extends React.Component {
       }
 
       return (
-        <div key={calendarDate} onClick={() => this.handleClickSelectDate(calendarDate)}
+        <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
           className={"calendar-day-mini " +
             (currentDay ? "current-day-mini " : "" ) +
             (currentMonth ? "current-month-mini " : "not-current-month-mini ") +
@@ -64,17 +72,6 @@ class CalendarMini extends React.Component {
     })
 
     return daysThisMonth;
-  }
-
-  handleClickSelectDate(calendarDate) {
-    const newDate = new Date(calendarDate.getTime());
-    newDate.setDate(1);
-
-    this.setState({
-      viewDate: newDate
-    })
-
-    this.props.updateSelectedDate(calendarDate);
   }
 
   getFirstDayOfMonth() {
@@ -90,7 +87,6 @@ class CalendarMini extends React.Component {
   }
 
   getNumDaysInMonth() {
-    // @month: 0-based (January = 0)
     const {viewDate} = this.state;
     const year =  viewDate.getFullYear();
     const month = viewDate.getMonth();
