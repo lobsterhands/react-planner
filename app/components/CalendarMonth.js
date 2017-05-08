@@ -6,8 +6,7 @@ class CalendarMonth extends React.Component {
   constructor(props) {
     super(props);
 
-    const viewDate = new Date(); // current date with day set to first day of month
-    viewDate.setHours(0, 0, 0, 0);
+    const viewDate = new Date(this.props.selectedDate.getTime()); // current date with day set to first day of month
     viewDate.setDate(1); // Set to first day of the month
 
     this.state = {
