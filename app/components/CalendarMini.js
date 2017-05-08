@@ -5,28 +5,29 @@ class CalendarMini extends React.Component {
   constructor(props) {
     super(props);
 
-    const viewDate = new Date(); // current date with day set to first day of month
-    viewDate.setHours(0, 0, 0, 0);
-    viewDate.setDate(1); // Set to first day of the month
+    const viewDate = new Date(this.props.viewDate);
+    viewDate.setDate(1);
 
     this.state = {
+      miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       viewDate: viewDate,
-      miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+      viewWeek: this.props.viewWeek
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const {selectedDate} = nextProps;
-    const viewDate = new Date(selectedDate.getTime());
-    viewDate.setDate(1);
+    const {viewDate} = nextProps;
+    const newViewDate = new Date(viewDate.getTime());
+    newViewDate.setDate(1);
 
     this.setState({
-      viewDate: viewDate
+      viewDate: newViewDate,
+      viewWeek: nextProps.viewWeek
     })
   }
 
   getCalendarDays() {
-    let {selectedDate, trueDate, todos} = this.props;
+    const {selectedDate, trueDate, todos, viewWeek} = this.props;
     const {viewDate} = this.state;
 
     const firstDayOfMonth = this.getFirstDayOfMonth();
@@ -51,20 +52,27 @@ class CalendarMini extends React.Component {
       });
 
       let currentDay = false;
-
       if (calendarDate.getMonth() === viewDate.getMonth()) {
         if (calendarDate.getTime() === trueDate.getTime()) {
           currentDay = true;
         }
       }
 
+      let isCurrentViewWeek;
+      if (viewWeek) {
+        isCurrentViewWeek = viewWeek.some((date) => {
+          return calendarDate.getTime() === date.getTime()
+        });
+      }
+
       return (
         <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
-          className={"calendar-day-mini " +
-            (currentDay ? "current-day-mini " : "" ) +
-            (currentMonth ? "current-month-mini " : "not-current-month-mini ") +
-            (isSelected ? "calendar-day-selected " : "") +
-            (hasTodo ? "has-todo-mini " : "")
+          className={" calendar-day-mini" +
+            (currentDay ? " current-day-mini" : "" ) +
+            (currentMonth ? " current-month-mini" : " not-current-month-mini") +
+            (isSelected ? " calendar-day-selected" : "") +
+            (hasTodo ? " has-todo-mini" : "") +
+            (isCurrentViewWeek ? " current-week-view" : "")
           }>
               {calendarDate.getDate()}
         </div>
@@ -207,7 +215,9 @@ CalendarMini.propTypes = {
       date: PropTypes.instanceOf(Date)
     })
   ).isRequired,
-  updateSelectedDate: PropTypes.func.isRequired
+  updateSelectedDate: PropTypes.func.isRequired,
+  updateViewDate: PropTypes.func.isRequired,
+  viewDate: PropTypes.instanceOf(Date).isRequired
 }
 
 module.exports = CalendarMini;
