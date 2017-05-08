@@ -7,7 +7,8 @@ class CalendarMonth extends React.Component {
     super(props);
 
     const viewDate = new Date(); // current date with day set to first day of month
-    viewDate.setDate(1);
+    viewDate.setHours(0, 0, 0, 0);
+    viewDate.setDate(1); // Set to first day of the month
 
     this.state = {
       viewDate: viewDate
@@ -17,10 +18,20 @@ class CalendarMonth extends React.Component {
     this.goForwardInTime = this.goForwardInTime.bind(this);
   }
 
-  getCalendarDays() {
-    let {trueDate, todos, selectedDate} = this.props;
+  componentWillReceiveProps(nextProps) {
+    const {selectedDate} = nextProps;
+    const viewDate = new Date(selectedDate.getTime());
+    viewDate.setDate(1);
 
-    const viewDate = this.state.viewDate;
+    this.setState({
+      viewDate: viewDate
+    })
+  }
+
+  getCalendarDays() {
+    const {trueDate, todos, selectedDate} = this.props;
+    const {viewDate} = this.state;
+
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const daysInMonth = this.getNumDaysInMonth();
 
@@ -44,7 +55,7 @@ class CalendarMonth extends React.Component {
       })
 
       return (
-        <div key={calendarDate} onClick={() => this.handleClick(calendarDate)}
+        <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
           className={"calendar-day " +
             (isCurrentDay ? "current-day " : "" ) +
             (currentMonth ? "current-month " : " ") +
@@ -58,14 +69,10 @@ class CalendarMonth extends React.Component {
     return daysThisMonth;
   }
 
-  handleClick(date) {
-    this.props.updateSelectedDate(date);
-  }
-
   getFirstDayOfMonth() {
     // Returns integer representing the first day of the month
     // 1 = Monday, 7 = Sunday
-    const viewDate = this.state.viewDate;
+    const {viewDate} = this.state;
     const firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
 
     if (firstDay === 0) { // Avoid having Sunday start the month in the zeroth calendar square
@@ -75,17 +82,16 @@ class CalendarMonth extends React.Component {
   }
 
   getNumDaysInMonth() {
-    // @month: 0-based (January = 0)
-    const year = this.state.viewDate.getFullYear();
-    const month = this.state.viewDate.getMonth();
+    const {viewDate} = this.state;
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
     return new Date(year, month + 1, 0).getDate();
   }
 
   goBackInTime() {
     // Display previous month's calendar
-    const viewDate = this.state.viewDate;
+    const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, viewDate.getDate());
-    const calendarDays = this.getCalendarDays(newView);
 
     this.setState(function () {
       return {
@@ -96,7 +102,7 @@ class CalendarMonth extends React.Component {
 
   goForwardInTime() {
     // Display next month's calendar
-    const viewDate = this.state.viewDate;
+    const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
 
     this.setState(function () {
@@ -195,7 +201,8 @@ CalendarMonth.propTypes = {
       activity: PropTypes.string,
       date: PropTypes.instanceOf(Date)
     })
-  ).isRequired
+  ).isRequired,
+  updateSelectedDate: PropTypes.func.isRequired
 }
 
 module.exports = CalendarMonth;
