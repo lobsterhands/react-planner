@@ -6,7 +6,7 @@ class CalendarMonth extends React.Component {
   constructor(props) {
     super(props);
 
-    const viewDate = new Date(this.props.selectedDate.getTime()); // current date with day set to first day of month
+    const viewDate = new Date(this.props.viewDate); // current date with day set to first day of month
     viewDate.setDate(1); // Set to first day of the month
 
     this.state = {
@@ -18,12 +18,12 @@ class CalendarMonth extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {selectedDate} = nextProps;
-    const viewDate = new Date(selectedDate.getTime());
-    viewDate.setDate(1);
+    const {selectedDate, viewDate} = nextProps;
+    const newViewDate = new Date(viewDate);
+    newViewDate.setDate(1);
 
     this.setState({
-      viewDate: viewDate
+      viewDate: newViewDate
     })
   }
 
@@ -91,6 +91,7 @@ class CalendarMonth extends React.Component {
     // Display previous month's calendar
     const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, viewDate.getDate());
+    this.props.updateViewDate(newView);
 
     this.setState(function () {
       return {
@@ -103,6 +104,7 @@ class CalendarMonth extends React.Component {
     // Display next month's calendar
     const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
+    this.props.updateViewDate(newView);
 
     this.setState(function () {
       return {
@@ -201,7 +203,9 @@ CalendarMonth.propTypes = {
       date: PropTypes.instanceOf(Date)
     })
   ).isRequired,
-  updateSelectedDate: PropTypes.func.isRequired
+  updateSelectedDate: PropTypes.func.isRequired,
+  updateViewDate: PropTypes.func.isRequired,
+  viewDate: PropTypes.instanceOf(Date).isRequired
 }
 
 module.exports = CalendarMonth;
