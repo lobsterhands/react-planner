@@ -127,7 +127,7 @@ class Planner extends React.Component {
           viewDate={viewDate}
         />;
     } else if (calendarView === 'year') {
-      displayCalendar = <CalendarYear />;
+      // displayCalendar = <CalendarYear />;
     }
 
     return (
@@ -142,7 +142,6 @@ class Planner extends React.Component {
           <CalendarViewButton title={'Day'} calendarView={calendarView} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
           <CalendarViewButton title={'Week'} calendarView={calendarView} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
           <CalendarViewButton title={'Month'} calendarView={calendarView} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
-          <CalendarViewButton title={'Year'} calendarView={calendarView} viewCommand={'year'} updateView={(cmd) => this.updateView(cmd)}/>
         </div>
 
         <div className="calendar-container">
