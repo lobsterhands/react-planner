@@ -6,35 +6,42 @@ const TimeSliceHeader = require('./TimeSliceHeader');
 class CalendarWeek extends React.Component {
   constructor(props) {
     super(props);
+    const {viewDate} = this.props;
+    const viewWeek = this.getWeekDates(viewDate);
 
     this.state = {
-      viewDate: this.props.selectedDate
+      viewDate: viewDate,
+      viewWeek: viewWeek
     }
 
     this.goBackInTime = this.goBackInTime.bind(this);
     this.goForwardInTime = this.goForwardInTime.bind(this);
+    this.updateSelectedDate = this.props.updateSelectedDate.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {viewDate} = nextProps;
+    const viewWeek = this.getWeekDates(viewDate);
+
+    this.setState({
+      viewDate: viewDate,
+      viewWeek: viewWeek
+    })
   }
 
   goBackInTime() {
     const {viewDate} = this.state;
     const newViewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate() - 7);
-
-    this.setState({
-      viewDate: newViewDate
-    });
+    this.props.updateViewDate(newViewDate);
   }
 
   goForwardInTime() {
     const {viewDate} = this.state;
     const newViewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate() + 7);
-
-    this.setState({
-      viewDate: newViewDate
-    });
+    this.props.updateViewDate(newViewDate);
   }
 
-  getWeekDates() {
-    const {viewDate} = this.state;
+  getWeekDates(viewDate) {
     const currentDate = viewDate.getDate(); // 1-31
     const currentDay = viewDate.getDay(); // 0-6
 
@@ -49,23 +56,22 @@ class CalendarWeek extends React.Component {
     return weekDates;
   }
 
-  renderRows(viewWeek) {
+  renderRows() {
     const {timeIncrements, todos, trueDate} = this.props;
-
+    const {viewWeek} = this.state;
     const [sun, mon, tue, wed, thu, fri, sat] = viewWeek;
 
     let rowContainer = timeIncrements.map((timeSlice, index) => {
-
       return (
         <tr className={"calendar-schedule-row"} key={index}>
           <TimeSliceHeader key={timeSlice} timeSlice={timeSlice} />
-          <ScheduleData date={sun} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 1} />
-          <ScheduleData date={mon} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 2} />
-          <ScheduleData date={tue} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 3} />
-          <ScheduleData date={wed} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 4} />
-          <ScheduleData date={thu} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 5} />
-          <ScheduleData date={fri} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 6} />
-          <ScheduleData date={sat} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 7} />
+          <ScheduleData date={sun} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 1} onClick={this.updateSelectedDate}/>
+          <ScheduleData date={mon} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 2} onClick={this.updateSelectedDate}/>
+          <ScheduleData date={tue} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 3} onClick={this.updateSelectedDate}/>
+          <ScheduleData date={wed} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 4} onClick={this.updateSelectedDate}/>
+          <ScheduleData date={thu} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 5} onClick={this.updateSelectedDate}/>
+          <ScheduleData date={fri} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 6} onClick={this.updateSelectedDate}/>
+          <ScheduleData date={sat} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 7} onClick={this.updateSelectedDate}/>
         </tr>
       )
     })
@@ -73,13 +79,13 @@ class CalendarWeek extends React.Component {
     return rowContainer;
   }
 
-  getFromDayToDay(viewWeek) {
-    const {monthNames} = this.props;
-
+  getFromDayToDay() {
+    const {monthNamesAbbr} = this.props;
+    const {viewWeek} = this.state;
     const fromDay = viewWeek[0];
     const toDay = viewWeek[6];
-    const fromDayMonthName = monthNames[fromDay.getMonth()];
-    const toDayMonthName = monthNames[toDay.getMonth()];
+    const fromDayMonthName = monthNamesAbbr[fromDay.getMonth()];
+    const toDayMonthName = monthNamesAbbr[toDay.getMonth()];
     let fromDayToDay = null;
     if (fromDayMonthName === toDayMonthName) {
       fromDayToDay = fromDayMonthName + " " + fromDay.getDate() + " - " +
@@ -94,8 +100,8 @@ class CalendarWeek extends React.Component {
 
   render() {
     const {dayNames} = this.props;
-    const viewWeek = this.getWeekDates();
-    const fromDayToDay = this.getFromDayToDay(viewWeek);
+    const {viewWeek} = this.state;
+    const fromDayToDay = this.getFromDayToDay();
 
     return (
       <div className="CalendarWeek">
@@ -112,16 +118,16 @@ class CalendarWeek extends React.Component {
           <tbody>
             <tr className='day-names'>
               <th></th>
-              {dayNames.map((day, index) => {
-                const viewDay = viewWeek[index];
-                const dayOfMonth = viewDay.getDate();
-                const monthNum = (viewDay.getMonth() + 1);
-                return (
-                  <th key={day} scope="col" className="th-day-name">
-                    {day} {monthNum}/{dayOfMonth}
-                  </th>
-                )
-              })}
+                {dayNames.map((day, index) => {
+                  const viewDay = viewWeek[index];
+                  const dayOfMonth = viewDay.getDate();
+                  const monthNum = (viewDay.getMonth() + 1);
+                  return (
+                   <th key={day} scope="col" className="th-day-name">
+                     {day} {monthNum}/{dayOfMonth}
+                   </th>
+                 )
+               })}
             </tr>
             {this.renderRows(viewWeek)}
           </tbody>
@@ -129,6 +135,23 @@ class CalendarWeek extends React.Component {
       </div>
     )
   }
+}
+
+CalendarWeek.propTypes = {
+  dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  monthNamesAbbr: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
+  timeIncrements: PropTypes.arrayOf(PropTypes.string).isRequired,
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      activity: PropTypes.string,
+      date: PropTypes.instanceOf(Date)
+    })
+  ).isRequired,
+  trueDate: PropTypes.instanceOf(Date).isRequired,
+  updateSelectedDate: PropTypes.func.isRequired,
+  updateViewDate: PropTypes.func.isRequired,
+  viewDate: PropTypes.instanceOf(Date)
 }
 
 module.exports = CalendarWeek;

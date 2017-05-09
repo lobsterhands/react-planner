@@ -2,12 +2,10 @@ const React = require('react');
 const PropTypes = require('prop-types');
 
 class CalendarMonth extends React.Component {
-
   constructor(props) {
     super(props);
-
-    const viewDate = new Date(this.props.selectedDate.getTime()); // current date with day set to first day of month
-    viewDate.setDate(1); // Set to first day of the month
+    const viewDate = new Date(this.props.viewDate);
+    viewDate.setDate(1);
 
     this.state = {
       viewDate: viewDate
@@ -18,25 +16,23 @@ class CalendarMonth extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {selectedDate} = nextProps;
-    const viewDate = new Date(selectedDate.getTime());
-    viewDate.setDate(1);
+    const {selectedDate, viewDate} = nextProps;
+    const newViewDate = new Date(viewDate);
+    newViewDate.setDate(1);
 
     this.setState({
-      viewDate: viewDate
+      viewDate: newViewDate
     })
   }
 
   getCalendarDays() {
     const {trueDate, todos, selectedDate} = this.props;
     const {viewDate} = this.state;
-
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const daysInMonth = this.getNumDaysInMonth();
 
     const daysThisMonth = new Array(42).fill(0).map((day, index) => {
-      let calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
-
+      let calendarDate = new Date(viewDate);
       let currentMonth = false;
       if (index < firstDayOfMonth) {
         calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
@@ -91,24 +87,14 @@ class CalendarMonth extends React.Component {
     // Display previous month's calendar
     const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, viewDate.getDate());
-
-    this.setState(function () {
-      return {
-        viewDate: newView
-      }
-    })
+    this.props.updateViewDate(newView);
   }
 
   goForwardInTime() {
     // Display next month's calendar
     const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
-
-    this.setState(function () {
-      return {
-        viewDate: newView
-      }
-    })
+    this.props.updateViewDate(newView);
   }
 
   renderDayNames() {
@@ -191,17 +177,19 @@ class CalendarMonth extends React.Component {
 }
 
 CalendarMonth.propTypes = {
-  trueDate: PropTypes.instanceOf(Date).isRequired,
-  selectedDate: PropTypes.instanceOf(Date).isRequired,
-  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
       activity: PropTypes.string,
       date: PropTypes.instanceOf(Date)
     })
   ).isRequired,
-  updateSelectedDate: PropTypes.func.isRequired
+  trueDate: PropTypes.instanceOf(Date).isRequired,
+  updateSelectedDate: PropTypes.func.isRequired,
+  updateViewDate: PropTypes.func.isRequired,
+  viewDate: PropTypes.instanceOf(Date).isRequired
 }
 
 module.exports = CalendarMonth;

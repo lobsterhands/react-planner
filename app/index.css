@@ -156,6 +156,10 @@ h2 {
   float: right;
 }
 
+.current-week-view {
+  background: #EEE;
+}
+
 .current-day-mini {
   color: blue;
 }
@@ -237,6 +241,7 @@ h2 {
 
 /*===ScheduleDate===*/
 .schedule-activity {
+  width: 100px;
   font-size: 12px;
   overflow: hidden;
   cursor: pointer;
