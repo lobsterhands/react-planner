@@ -103,10 +103,7 @@ h2 {
 }
 
 .planner-view-btn-container {
-  /*float: right;*/
-  /*margin-right: 16.333%;*/
 }
-
 .planner-view-btn {
   width: 60px;
   height: 30px;
@@ -203,12 +200,12 @@ h2 {
 /*===CalendarDay===*/
 .CalendarDay {
   margin-top: 16px;
-  max-width: 824px;
+  max-width: 1200px;
 }
 
 .CalendarDay table {
   table-layout: fixed;
-  width: 66%;
+  width: 67%;
 }
 
 /*===CalendarWeek===*/
@@ -267,11 +264,11 @@ h2 {
 }
 
 /*===CalendarMonth===*/
-.Calendar {
+.CalendarMonth {
   margin-top: 16px;
 }
 
-.current-day {
+.calendar-month-current-day {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

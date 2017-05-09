@@ -51,11 +51,11 @@ class CalendarMonth extends React.Component {
 
       return (
         <div key={calendarDate} onClick={() => this.props.updateSelectedDate(calendarDate)}
-          className={"calendar-day " +
-            (isCurrentDay ? "current-day " : "" ) +
-            (currentMonth ? "current-month " : " ") +
-            (hasTodo ? "has-todo " : "") +
-            (isSelected ? "calendar-day-selected " : "")}>
+          className={"calendar-day" +
+            (isCurrentDay ? " calendar-month-current-day" : "" ) +
+            (currentMonth ? " current-month" : "") +
+            (hasTodo ? " has-todo" : "") +
+            (isSelected ? " calendar-day-selected" : "")}>
             <p>{calendarDate.getDate()}</p>
         </div>
       )
@@ -111,7 +111,7 @@ class CalendarMonth extends React.Component {
     const currentMonth = this.props.monthNames[this.state.viewDate.getMonth()];
 
     return (
-      <div className="Calendar">
+      <div className="CalendarMonth">
         <div className="year-month">
           <div className='calendar-left' onClick={this.goBackInTime}>
             &#8678;
