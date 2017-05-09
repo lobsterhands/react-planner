@@ -6,40 +6,39 @@ const TimeSliceHeader = require('./TimeSliceHeader');
 class CalendarWeek extends React.Component {
   constructor(props) {
     super(props);
+    const {viewDate} = this.props;
+    const viewWeek = this.getWeekDates(viewDate);
 
     this.state = {
-      viewDate: this.props.selectedDate,
-      viewWeek: this.props.viewWeek
+      viewDate: viewDate,
+      viewWeek: viewWeek
     }
 
     this.goBackInTime = this.goBackInTime.bind(this);
     this.goForwardInTime = this.goForwardInTime.bind(this);
-
     this.updateSelectedDate = this.props.updateSelectedDate.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {viewDate} = nextProps;
+    const viewWeek = this.getWeekDates(viewDate);
+
+    this.setState({
+      viewDate: viewDate,
+      viewWeek: viewWeek
+    })
   }
 
   goBackInTime() {
     const {viewDate} = this.state;
     const newViewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate() - 7);
-    const viewWeek = this.getWeekDates(newViewDate);
-    this.props.updateViewWeek(viewWeek);
-
-    this.setState({
-      viewDate: newViewDate,
-      viewWeek: viewWeek
-    });
+    this.props.updateViewDate(newViewDate);
   }
 
   goForwardInTime() {
     const {viewDate} = this.state;
     const newViewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate() + 7);
-    const viewWeek = this.getWeekDates(newViewDate);
-    this.props.updateViewWeek(viewWeek);
-
-    this.setState({
-      viewDate: newViewDate,
-      viewWeek: viewWeek
-    });
+    this.props.updateViewDate(newViewDate);
   }
 
   getWeekDates(viewDate) {
@@ -83,7 +82,6 @@ class CalendarWeek extends React.Component {
   getFromDayToDay() {
     const {monthNamesAbbr} = this.props;
     const {viewWeek} = this.state;
-
     const fromDay = viewWeek[0];
     const toDay = viewWeek[6];
     const fromDayMonthName = monthNamesAbbr[fromDay.getMonth()];
@@ -143,16 +141,17 @@ CalendarWeek.propTypes = {
   dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   monthNamesAbbr: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
+  timeIncrements: PropTypes.arrayOf(PropTypes.string).isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
       activity: PropTypes.string,
       date: PropTypes.instanceOf(Date)
     })
   ).isRequired,
-  timeIncrements: PropTypes.arrayOf(PropTypes.string).isRequired,
   trueDate: PropTypes.instanceOf(Date).isRequired,
   updateSelectedDate: PropTypes.func.isRequired,
-  updateViewWeek: PropTypes.func.isRequired
+  updateViewDate: PropTypes.func.isRequired,
+  viewDate: PropTypes.instanceOf(Date)
 }
 
 module.exports = CalendarWeek;

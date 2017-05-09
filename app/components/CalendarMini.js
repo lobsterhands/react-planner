@@ -5,13 +5,15 @@ class CalendarMini extends React.Component {
   constructor(props) {
     super(props);
 
-    const viewDate = new Date(this.props.viewDate);
-    viewDate.setDate(1);
+    const {viewDate} = this.props;
+    const newViewDate = new Date(viewDate);
+    newViewDate.setDate(1);
+    const viewWeek = this.getWeekDates(viewDate);
 
     this.state = {
       miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-      viewDate: viewDate,
-      viewWeek: this.props.viewWeek
+      viewDate: newViewDate,
+      viewWeek: viewWeek
     };
   }
 
@@ -19,16 +21,32 @@ class CalendarMini extends React.Component {
     const {viewDate} = nextProps;
     const newViewDate = new Date(viewDate.getTime());
     newViewDate.setDate(1);
+    const viewWeek = this.getWeekDates(viewDate);
 
     this.setState({
       viewDate: newViewDate,
-      viewWeek: nextProps.viewWeek
+      viewWeek: viewWeek
     })
   }
 
+  getWeekDates(viewDate) {
+    const currentDate = viewDate.getDate(); // 1-31
+    const currentDay = viewDate.getDay(); // 0-6
+
+    const weekDates = new Array(7).fill(0).map((elem, index) => {
+      let weekDate = new Date(
+        viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate()
+      );
+        weekDate.setDate(weekDate.getDate() - (currentDay - index));
+        return weekDate;
+    });
+
+    return weekDates;
+  }
+
   getCalendarDays() {
-    const {selectedDate, trueDate, todos, viewWeek} = this.props;
-    const {viewDate} = this.state;
+    const {selectedDate, trueDate, todos} = this.props;
+    const {viewDate, viewWeek} = this.state;
 
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const daysInMonth = this.getNumDaysInMonth();
@@ -59,7 +77,7 @@ class CalendarMini extends React.Component {
       }
 
       let isCurrentViewWeek;
-      if (viewWeek) {
+      if (this.props.calendarView === 'week') {
         isCurrentViewWeek = viewWeek.some((date) => {
           return calendarDate.getTime() === date.getTime()
         });
@@ -205,18 +223,17 @@ class CalendarMini extends React.Component {
 }
 
 CalendarMini.propTypes = {
-  dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  calendarView: PropTypes.string.isRequired,
   monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
-  trueDate: PropTypes.instanceOf(Date).isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
       activity: PropTypes.string,
       date: PropTypes.instanceOf(Date)
     })
   ).isRequired,
+  trueDate: PropTypes.instanceOf(Date).isRequired,
   updateSelectedDate: PropTypes.func.isRequired,
-  updateViewDate: PropTypes.func.isRequired,
   viewDate: PropTypes.instanceOf(Date).isRequired
 }
 

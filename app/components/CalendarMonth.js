@@ -2,12 +2,10 @@ const React = require('react');
 const PropTypes = require('prop-types');
 
 class CalendarMonth extends React.Component {
-
   constructor(props) {
     super(props);
-
-    const viewDate = new Date(this.props.viewDate); // current date with day set to first day of month
-    viewDate.setDate(1); // Set to first day of the month
+    const viewDate = new Date(this.props.viewDate);
+    viewDate.setDate(1);
 
     this.state = {
       viewDate: viewDate
@@ -30,13 +28,11 @@ class CalendarMonth extends React.Component {
   getCalendarDays() {
     const {trueDate, todos, selectedDate} = this.props;
     const {viewDate} = this.state;
-
     const firstDayOfMonth = this.getFirstDayOfMonth();
     const daysInMonth = this.getNumDaysInMonth();
 
     const daysThisMonth = new Array(42).fill(0).map((day, index) => {
-      let calendarDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), viewDate.getDate());
-
+      let calendarDate = new Date(viewDate);
       let currentMonth = false;
       if (index < firstDayOfMonth) {
         calendarDate.setDate(viewDate.getDate() - (firstDayOfMonth - index));
@@ -92,12 +88,6 @@ class CalendarMonth extends React.Component {
     const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, viewDate.getDate());
     this.props.updateViewDate(newView);
-
-    this.setState(function () {
-      return {
-        viewDate: newView
-      }
-    })
   }
 
   goForwardInTime() {
@@ -105,12 +95,6 @@ class CalendarMonth extends React.Component {
     const {viewDate} = this.state;
     const newView = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate());
     this.props.updateViewDate(newView);
-
-    this.setState(function () {
-      return {
-        viewDate: newView
-      }
-    })
   }
 
   renderDayNames() {
@@ -193,16 +177,16 @@ class CalendarMonth extends React.Component {
 }
 
 CalendarMonth.propTypes = {
-  trueDate: PropTypes.instanceOf(Date).isRequired,
-  selectedDate: PropTypes.instanceOf(Date).isRequired,
-  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
       activity: PropTypes.string,
       date: PropTypes.instanceOf(Date)
     })
   ).isRequired,
+  trueDate: PropTypes.instanceOf(Date).isRequired,
   updateSelectedDate: PropTypes.func.isRequired,
   updateViewDate: PropTypes.func.isRequired,
   viewDate: PropTypes.instanceOf(Date).isRequired
