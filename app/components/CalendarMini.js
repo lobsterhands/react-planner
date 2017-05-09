@@ -11,8 +11,9 @@ class CalendarMini extends React.Component {
     const viewWeek = this.getWeekDates(viewDate);
 
     this.state = {
-      miniDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      dayNamesAbbr: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       viewDate: newViewDate,
+      viewDay: viewDate,
       viewWeek: viewWeek
     };
   }
@@ -25,6 +26,7 @@ class CalendarMini extends React.Component {
 
     this.setState({
       viewDate: newViewDate,
+      viewDay: viewDate,
       viewWeek: viewWeek
     })
   }
@@ -76,11 +78,16 @@ class CalendarMini extends React.Component {
         }
       }
 
-      let isCurrentViewWeek;
-      if (this.props.calendarView === 'week') {
-        isCurrentViewWeek = viewWeek.some((date) => {
-          return calendarDate.getTime() === date.getTime()
-        });
+      let isCurrentView;
+      switch(this.props.calendarView) {
+        case 'day':
+          isCurrentView = (calendarDate.getTime() === this.state.viewDay.getTime());
+          break;
+        case 'week':
+          isCurrentView = viewWeek.some((date) => {
+            return calendarDate.getTime() === date.getTime()
+          });
+          break;
       }
 
       return (
@@ -90,7 +97,7 @@ class CalendarMini extends React.Component {
             (currentMonth ? " current-month-mini" : " not-current-month-mini") +
             (isSelected ? " calendar-day-selected" : "") +
             (hasTodo ? " has-todo-mini" : "") +
-            (isCurrentViewWeek ? " current-week-view" : "")
+            (isCurrentView ? " current-week-view" : "")
           }>
               {calendarDate.getDate()}
         </div>
@@ -144,7 +151,7 @@ class CalendarMini extends React.Component {
   }
 
   renderDayNames() {
-    return this.state.miniDays.map((name, index) => {
+    return this.state.dayNamesAbbr.map((name, index) => {
       return (
         <th key={index} scope="col" className="th-day-name-mini">{ name }</th>
       )
