@@ -93,7 +93,7 @@ h2 {
 .Planner {
   text-align: center;
   margin: 0 auto;
-  min-width: 900px;
+  min-width: 1100px;
 }
 
 .planner-container {
@@ -200,10 +200,26 @@ h2 {
   color: #bbb;
 }
 
+/*===CalendarDay===*/
+.CalendarDay {
+  margin-top: 16px;
+  max-width: 824px;
+}
+
+.CalendarDay table {
+  table-layout: fixed;
+  width: 66%;
+}
+
 /*===CalendarWeek===*/
 .CalendarWeek {
   margin: 0 auto;
   margin-top: 16px;
+}
+
+.table-calendar-day {
+  table-layout: fixed;
+  width: 100%;
 }
 
 .day-names th {
@@ -241,7 +257,6 @@ h2 {
 
 /*===ScheduleDate===*/
 .schedule-activity {
-  width: 100px;
   font-size: 12px;
   overflow: hidden;
   cursor: pointer;
