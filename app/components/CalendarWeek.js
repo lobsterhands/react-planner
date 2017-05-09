@@ -140,7 +140,6 @@ class CalendarWeek extends React.Component {
 CalendarWeek.propTypes = {
   dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   monthNamesAbbr: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectedDate: PropTypes.instanceOf(Date).isRequired,
   timeIncrements: PropTypes.arrayOf(PropTypes.string).isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
