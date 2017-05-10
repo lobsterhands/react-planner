@@ -2,9 +2,9 @@
 :root {
   /* CSS variables declarations */
   --calendar-hover: #DDD;
-  --calendar-selected: #acc5fe;
+  --calendar-selected: #4AC7F3;
   --color-honey: #FEE5AC;
-  --color-softblue: #acc5fe;
+  --color-softblue: #4AC7F3;
   --calendar-day-border: #fff;
   --days-past: rgba(200, 150, 72, .4);
 }
@@ -208,6 +208,10 @@ h2 {
   width: 100%;
 }
 
+.table-calendar-day tr:nth-child(odd) {
+  background: #EFEFEF;
+}
+
 /*===CalendarWeek===*/
 .CalendarWeek {
   margin: 0;
@@ -236,7 +240,7 @@ h2 {
 
 .schedule-activity {
   border: 1px solid #ddd;
-  height: 20px;
+  height: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
