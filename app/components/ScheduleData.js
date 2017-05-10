@@ -2,7 +2,7 @@ import React from 'react';
 
 class ScheduleData extends React.Component {
 
-  handleClick(date, timeSlice) {
+  handleClick(e, date, timeSlice) {
     this.props.onClick(date);
   }
 
@@ -10,15 +10,16 @@ class ScheduleData extends React.Component {
     const {date, timeSlice, todos, trueDate} = this.props;
     const isCurrentDay = (date.getTime() === trueDate.getTime());
 
-    const todayTodos = todos.filter((todo) => {
+    const timeSliceTodos = todos.filter((todo) => {
       return (todo.date.getTime() === date.getTime() && todo.time === timeSlice)
     });
-    const [todo] = todayTodos;
+
+    const [todo] = timeSliceTodos;
 
     return (
-        <td className={"schedule-activity " + (isCurrentDay ? "current-day " : "")} onClick={() => this.handleClick(date, timeSlice)}>
-          {(todo ? todo.activity : '')}
-        </td>
+      <td className={"schedule-activity " + (isCurrentDay ? "current-day " : "")} onClick={(e) => this.handleClick(e, date, timeSlice)}>
+        {(todo ? todo.activity : '')}
+      </td>
     )
   }
 }

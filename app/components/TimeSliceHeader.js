@@ -5,7 +5,7 @@ class TimeSliceHeader extends React.Component {
   render() {
     const {timeSlice} = this.props;
     return (
-        <td className="time-slice-header">{timeSlice}</td>
+        <th className="time-slice-header">{timeSlice}</th>
     )
   }
 }
