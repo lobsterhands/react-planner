@@ -74,13 +74,11 @@ h2 {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   text-align: center;
-  /*float: left;*/
   margin: 0 auto;
 }
 
 .todo {
   cursor: pointer;
-  /*float: left;*/
   clear: both;
   margin: 0 0 6px 0;
   padding: 0 10px 0 4px;
@@ -93,7 +91,7 @@ h2 {
 .Planner {
   text-align: center;
   margin: 0 auto;
-  min-width: 1100px;
+  min-width: 1200px;
 }
 
 .planner-container {
@@ -102,8 +100,6 @@ h2 {
   margin-top: 16px;
 }
 
-.planner-view-btn-container {
-}
 .planner-view-btn {
   width: 60px;
   height: 30px;
@@ -199,58 +195,54 @@ h2 {
 
 /*===CalendarDay===*/
 .CalendarDay {
+  margin: 0;
+  padding: 0;
   margin-top: 16px;
-  max-width: 1200px;
+  max-width: 810px;
 }
 
-.CalendarDay table {
-  table-layout: fixed;
-  width: 67%;
+.table-calendar-day {
+  padding: 0;
+  margin: 0;
+  margin-top: 16px;
+  width: 100%;
 }
 
 /*===CalendarWeek===*/
 .CalendarWeek {
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
   margin-top: 16px;
-}
-
-.table-calendar-day {
-  table-layout: fixed;
-  width: 100%;
-}
-
-.day-names th {
-  width: 144px;
-}
-
-.CalendarWeek.table-calendar.tr-calendar {
-  border: 1px solid black;
-  width: 10px;
-  height: 10px;
+  max-width: 810px;
 }
 
 .table-calendar-week {
   padding: 0;
   margin: 0;
   margin-top: 16px;
-  border-collapse: collapse;
+  margin-left: -40px;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .time-slice-header {
+  width: 5%;
   padding-right: 10px;
   font-size: 12px;
+  font-weight: bold;
   text-align: right;
+  border: none;
 }
 
-.calendar-schedule-row td {
+.schedule-activity {
   border: 1px solid #ddd;
   height: 20px;
-  max-width: 100px; /* Why does the value not matter? */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-left: 4px;
 }
+
 
 /*===ScheduleDate===*/
 .schedule-activity {
