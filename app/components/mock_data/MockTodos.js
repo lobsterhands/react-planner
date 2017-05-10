@@ -11,7 +11,7 @@ const timeValues = [1, 30, 100, 130, 200, 230, 300, 330, 400, 430, 500, 530, 600
 
 const todos = ['Read a chapter of How to Win Friends', 'Call James', 'Make oatmeal for the week',
   'Return library books', 'Buy toothbrush', 'Copy housekey', 'Study German', 'Take vitamins', 'Call Mom',
-  'Send Thank You notes', 'Send Melanie that recipe', 'Send resume to Startup.com', 'Play Rocket League',
+  'Send Thank You notes', 'Send Melanie that recipe', 'Send resume to HotNewStartup.com', 'Play Rocket League',
   'Take a nap. You earned it.', 'Play Chess',  'Boardgames with friends!', 'Graduation Party',
   'Get a passport photo', 'Wash dishes. For real.', 'Wash cat', 'Do laundry', 'Pay parking ticket',
   'Hustle', 'Add autoprefixer', 'Read MDN', 'Twitch stream Minesweeper', 'Eat an apple', 'Brush teeth',
@@ -31,10 +31,16 @@ const todosComplete = todos.map((todo) => {
   })
 });
 
-todosComplete.push(
-  {activity: 'test1: this slice should show test2 as well.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-  {activity: 'test2', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-);
+// TODO: A table should be filled completely with a single <td>
+// todosComplete.push(
+//   {activity: 'test1: this slice should show test2 as well.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+//   {activity: 'test2', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+// );
+//
+// todosComplete.push(
+//   {activity: 'test3: this slice should show test4 as well.', date: getTomorrowDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+//   {activity: 'test4', date: getTomorrowDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+// );
 
 // Want to set a random date between 7 days in the past and 14 days in the future
 function getRandomInt(max, min) {
@@ -54,4 +60,12 @@ function getTodayDate() {
   return today;
 }
 
+function getTomorrowDate() {
+  const tomorrow = new Date();
+  tomorrow.setHours(0,0,0,0);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow;
+}
+
+Object.freeze(todosComplete);
 module.exports = todosComplete;
