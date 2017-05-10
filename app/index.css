@@ -275,6 +275,7 @@ h2 {
   text-align: left;
   background: #eee;
   color: #aaa;
+  overflow: hidden;
 }
 
 .current-month {
@@ -285,6 +286,12 @@ h2 {
 .current-month.calendar-day-selected,
 .calendar-day-mini.calendar-day-selected {
   background: var(--calendar-selected);
+}
+
+.month-view-todo {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
 }
 
 .table-calendar {

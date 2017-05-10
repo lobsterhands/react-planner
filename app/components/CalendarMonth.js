@@ -43,10 +43,13 @@ class CalendarMonth extends React.Component {
         calendarDate.setDate(viewDate.getDate() + index - firstDayOfMonth);
       }
 
-      let isCurrentDay = (calendarDate.getTime() === trueDate.getTime());
-      let isSelected = (calendarDate.getTime() === selectedDate.getTime());
-      let hasTodo = todos.some((todo) => {
-        return (todo.date.valueOf() === calendarDate.valueOf());
+      const isCurrentDay = (calendarDate.getTime() === trueDate.getTime());
+      const isSelected = (calendarDate.getTime() === selectedDate.getTime());
+
+      const todayTodos = todos.filter((todo) => {
+        return (todo.date.getTime() === calendarDate.getTime());
+      }).sort((todo1, todo2) => {
+        return (todo1.timeValue - todo2.timeValue);
       })
 
       return (
@@ -54,9 +57,11 @@ class CalendarMonth extends React.Component {
           className={"calendar-day" +
             (isCurrentDay ? " calendar-month-current-day" : "" ) +
             (currentMonth ? " current-month" : "") +
-            (hasTodo ? " has-todo" : "") +
             (isSelected ? " calendar-day-selected" : "")}>
             <p>{calendarDate.getDate()}</p>
+            {todayTodos.map((todo) => {
+              return <p key={todo.activity} className="month-view-todo"> &middot; {todo.activity}</p>
+            })}
         </div>
       )
     })
