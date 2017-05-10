@@ -122,9 +122,10 @@ class CalendarWeek extends React.Component {
                   const viewDay = viewWeek[index];
                   const dayOfMonth = viewDay.getDate();
                   const monthNum = (viewDay.getMonth() + 1);
+                  const dayAbbr = day.slice(0,3);
                   return (
                    <th key={day} scope="col" className="th-day-name">
-                     {day} {monthNum}/{dayOfMonth}
+                     {dayAbbr} {monthNum}/{dayOfMonth}
                    </th>
                  )
                })}
