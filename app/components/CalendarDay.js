@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const ScheduleData = require('./ScheduleData');
+const DaySchedule = require('./DaySchedule');
 const TimeSliceHeader = require('./TimeSliceHeader');
 
 class CalendarDay extends React.Component {
@@ -37,11 +37,39 @@ class CalendarDay extends React.Component {
   renderRows() {
     const {timeIncrements, todos, trueDate, viewDate} = this.props;
 
-    let rowContainer = timeIncrements.map((timeSlice, index) => {
+    const todayTodos = todos.filter((todo) => {
+      return todo.date.getTime() === viewDate.getTime();
+    });
+
+    const rowContainer = timeIncrements.map((timeSlice, index) => {
+      const timeSliceTodos = todayTodos.filter((todo) => {
+        return (todo.time === timeSlice)
+      });
+
       return (
         <tr className={"calendar-schedule-row"} key={index}>
-          <TimeSliceHeader key={timeSlice} timeSlice={timeSlice} />
-          <ScheduleData date={viewDate} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 1} onClick={this.updateSelectedDate}/>
+          <TimeSliceHeader timeSlice={timeSlice}/>
+          {(timeSliceTodos.length > 0 ?
+            timeSliceTodos.map((todo) => {
+              return (
+                <DaySchedule
+                  key={todo.activity}
+                  viewDate={viewDate}
+                  todo={todo}
+                  timeSlice={timeSlice}
+                  trueDate={trueDate}
+                  onClick={this.updateSelectedDate}
+                />
+              )
+            }) :
+            <DaySchedule
+                viewDate={viewDate}
+                todo={{}}
+                timeSlice={timeSlice}
+                trueDate={trueDate}
+                onClick={this.updateSelectedDate}
+              />
+          )}
         </tr>
       )
     })
