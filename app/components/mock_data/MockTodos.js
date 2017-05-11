@@ -16,7 +16,9 @@ const todos = ['Read a chapter of How to Win Friends', 'Call James', 'Make oatme
   'Get a passport photo', 'Wash dishes. For real.', 'Wash cat', 'Do laundry', 'Pay parking ticket',
   'Hustle', 'Add autoprefixer', 'Read MDN', 'Twitch stream Minesweeper', 'Eat an apple', 'Brush teeth',
   'Beer with friends!', 'Sit in traffic', 'Delete FB account', 'Get married', 'Meditate', 'React Meetup',
-  'Buy Sigur Ros tickets', "'Like' some cat videos"
+  'Buy Sigur Ros tickets', "'Like' some cat videos",
+  `Make a really long todo to test what happens when you have a really long todo. Really. Longer.
+  Make it so long that it cannot help but fall off the side of the page.`
 ];
 
 const todosComplete = todos.map((todo) => {
@@ -32,15 +34,15 @@ const todosComplete = todos.map((todo) => {
 });
 
 // TODO: A table should be filled completely with a single <td>
-// todosComplete.push(
-//   {activity: 'test1: this slice should show test2 as well.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-//   {activity: 'test2', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-// );
-//
-// todosComplete.push(
-//   {activity: 'test3: this slice should show test4 as well.', date: getTomorrowDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-//   {activity: 'test4', date: getTomorrowDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-// );
+todosComplete.push(
+  {activity: 'test1: this slice should show test2 as well.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+  {activity: 'test2', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+);
+
+todosComplete.push(
+  {activity: 'test3: this slice should show test4 as well.', date: getTodayDate(), time: timeIncrements[3], timeValue: timeValues[3]},
+  {activity: 'test4', date: getTodayDate(), time: timeIncrements[3], timeValue: timeValues[3]},
+);
 
 // Want to set a random date between 7 days in the past and 14 days in the future
 function getRandomInt(max, min) {
