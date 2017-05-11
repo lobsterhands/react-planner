@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const DaySchedule = require('./DaySchedule');
+const ScheduledTodo = require('./ScheduledTodo');
 const TimeSliceHeader = require('./TimeSliceHeader');
 
 class CalendarDay extends React.Component {
@@ -34,7 +34,7 @@ class CalendarDay extends React.Component {
     this.props.updateViewDate(newViewDate);
   }
 
-  renderRows() {
+  renderDaySchedule() {
     const {timeIncrements, todos, trueDate, viewDate} = this.props;
 
     const todayTodos = todos.filter((todo) => {
@@ -44,33 +44,38 @@ class CalendarDay extends React.Component {
     const rowContainer = timeIncrements.map((timeSlice, index) => {
       const timeSliceTodos = todayTodos.filter((todo) => {
         return (todo.time === timeSlice)
-      });
+      })
+
+      let todoElements;
+      if (timeSliceTodos.length) {
+        todoElements = timeSliceTodos.map((todo) => {
+          return (
+            <ScheduledTodo
+              key={todo.activity}
+              timeSlice={timeSlice}
+              todo={todo}
+              trueDate={trueDate}
+              viewDate={viewDate}
+              onClick={this.updateSelectedDate}
+            />
+          )
+        })
+      } else {
+        todoElements =
+          <ScheduledTodo
+            viewDate={viewDate}
+            todo={{}}
+            timeSlice={timeSlice}
+            trueDate={trueDate}
+            onClick={this.updateSelectedDate}
+          />
+      }
 
       return (
-        <tr className={"calendar-schedule-row"} key={index}>
-          <TimeSliceHeader timeSlice={timeSlice}/>
-          {(timeSliceTodos.length > 0 ?
-            timeSliceTodos.map((todo) => {
-              return (
-                <DaySchedule
-                  key={todo.activity}
-                  viewDate={viewDate}
-                  todo={todo}
-                  timeSlice={timeSlice}
-                  trueDate={trueDate}
-                  onClick={this.updateSelectedDate}
-                />
-              )
-            }) :
-            <DaySchedule
-                viewDate={viewDate}
-                todo={{}}
-                timeSlice={timeSlice}
-                trueDate={trueDate}
-                onClick={this.updateSelectedDate}
-              />
-          )}
-        </tr>
+        <div className='day-schedule-todos-row' key={index}>
+        <div className='day-schedule-time-slice'>{timeSlice}</div>
+          {todoElements}
+        </div>
       )
     })
 
@@ -95,13 +100,9 @@ class CalendarDay extends React.Component {
             &#8680;
           </div>
         </div>
-        <table className='table-calendar-day'>
-          <tbody>
-            <tr className='day-names'>
-            </tr>
-            {this.renderRows()}
-          </tbody>
-        </table>
+        <div className='day-schedule-todos-container'>
+          {this.renderDaySchedule()}
+        </div>
       </div>
     )
   }
