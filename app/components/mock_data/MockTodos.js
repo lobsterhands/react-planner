@@ -35,13 +35,8 @@ const todosComplete = todos.map((todo) => {
 
 // TODO: A table should be filled completely with a single <td>
 todosComplete.push(
-  {activity: 'test1: this slice should show test2 as well.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-  {activity: 'test2', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
-);
-
-todosComplete.push(
-  {activity: 'test3: this slice should show test4 as well.', date: getTodayDate(), time: timeIncrements[3], timeValue: timeValues[3]},
-  {activity: 'test4', date: getTodayDate(), time: timeIncrements[3], timeValue: timeValues[3]},
+  {activity: 'Plan two todos in the same time frame.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
+  {activity: 'Check if multiple todos display properly', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
 );
 
 // Want to set a random date between 7 days in the past and 14 days in the future
@@ -60,13 +55,6 @@ function getTodayDate() {
   const today = new Date();
   today.setHours(0,0,0,0);
   return today;
-}
-
-function getTomorrowDate() {
-  const tomorrow = new Date();
-  tomorrow.setHours(0,0,0,0);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return tomorrow;
 }
 
 Object.freeze(todosComplete);
