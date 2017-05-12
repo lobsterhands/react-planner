@@ -18,7 +18,9 @@ const todos = ['Read a chapter of How to Win Friends', 'Call James', 'Make oatme
   'Beer with friends!', 'Sit in traffic', 'Delete FB account', 'Get married', 'Meditate', 'React Meetup',
   'Buy Sigur Ros tickets', "'Like' some cat videos",
   `Make a really long todo to test what happens when you have a really long todo. Really. Longer.
-  Make it so long that it cannot help but fall off the side of the page.`
+  Make it so long that it cannot help but fall off the side of the page.`, 'Drink a cup of coffee.', 'Buy more coffee',
+  'Read for an hour: Cracking the Coding Interview', 'Take a walk. Get some sun.', 'Practice for karaoke',
+  `Don't talk about fight club`
 ];
 
 const todosComplete = todos.map((todo) => {
@@ -39,7 +41,6 @@ todosComplete.push(
   {activity: 'Check if multiple todos display properly', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
 );
 
-// Want to set a random date between 7 days in the past and 14 days in the future
 function getRandomInt(max, min) {
   return Math.floor(Math.random() * max + min);
 }
@@ -47,7 +48,8 @@ function getRandomInt(max, min) {
 function getRandomDate() {
   const randDate = new Date();
   randDate.setHours(0,0,0,0);
-  randDate.setDate(randDate.getDate() + getRandomInt(21, -7));
+  // Set a random date between 2 weeks in the past and 14 days in the future
+  randDate.setDate(randDate.getDate() + getRandomInt(36, -12));
   return randDate;
 }
 
