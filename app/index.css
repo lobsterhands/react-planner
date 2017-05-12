@@ -232,8 +232,8 @@ h2 {
   font-size: 12px;
   font-weight: bold;
   text-align: right;
-  margin-right: 4px;
-  width: 50px;
+  margin-right: 10px;
+  min-width: 50px;
 }
 
 .day-schedule-todo {
@@ -245,7 +245,6 @@ h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-left: 4px;
   text-align: center;
   vertical-align: middle;
   line-height: 20px;
