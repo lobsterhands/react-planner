@@ -1,6 +1,21 @@
 {
   "name": "react-planner",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "author": "lyle denman",
+  "license": "ISC",
+  "description": "A todo and scheduling app inspired by Google Calendar",
+  "homepage": "https://github.com/lobsterhands/react-planner",
+  "repository": {
+   "type": "git",
+   "url": "git://github.com/lobsterhands/react-planner"
+ },
+ "keywords": [
+    "todo",
+    "calendar",
+    "schedule",
+    "react",
+    "javascript"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,9 +29,6 @@
       "react"
     ]
   },
-  "author": "lyle denman",
-  "license": "ISC",
-  "description": "A todo and scheduling app",
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
