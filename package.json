@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open",
-    "build": "SET NODE_ENV=production & webpack -p"
+    "build": "NODE_ENV='production' webpack -p",
+    "build-windows": "SET NODE_ENV=production & webpack -p"
   },
   "babel": {
     "presets": [
