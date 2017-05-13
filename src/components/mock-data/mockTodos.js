@@ -24,7 +24,6 @@ const todos = ['Read a chapter of How to Win Friends', 'Call James', 'Make oatme
 ];
 
 const todosComplete = todos.map((todo) => {
-
   const randomTimeIndex = getRandomInt(48, 0);
 
   return ({
