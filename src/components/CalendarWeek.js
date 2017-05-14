@@ -62,16 +62,22 @@ class CalendarWeek extends React.Component {
     const [sun, mon, tue, wed, thu, fri, sat] = viewWeek;
 
     let rowContainer = timeIncrements.map((timeSlice, index) => {
+      const scheduleData = viewWeek.map((day) => {
+        return (
+          <ScheduleData
+            date={day}
+            todos={todos}
+            timeSlice={timeSlice}
+            trueDate={trueDate}
+            onClick={this.updateSelectedDate}
+          />
+        );
+      });
+
       return (
         <tr className={"calendar-schedule-row"} key={index}>
           <TimeSliceHeader key={timeSlice} timeSlice={timeSlice} />
-          <ScheduleData date={sun} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 1} onClick={this.updateSelectedDate}/>
-          <ScheduleData date={mon} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 2} onClick={this.updateSelectedDate}/>
-          <ScheduleData date={tue} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 3} onClick={this.updateSelectedDate}/>
-          <ScheduleData date={wed} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 4} onClick={this.updateSelectedDate}/>
-          <ScheduleData date={thu} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 5} onClick={this.updateSelectedDate}/>
-          <ScheduleData date={fri} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 6} onClick={this.updateSelectedDate}/>
-          <ScheduleData date={sat} todos={todos} timeSlice={timeSlice} trueDate={trueDate} key={timeSlice + 7} onClick={this.updateSelectedDate}/>
+          {scheduleData}
         </tr>
       )
     })
