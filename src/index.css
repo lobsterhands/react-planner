@@ -389,3 +389,11 @@ h2 {
   height: 90px;
   cursor: pointer;
 }
+
+.view-source-code {
+  text-align: center;
+}
+
+.view-source-code a {
+  cursor: pointer;
+}
