@@ -34,7 +34,6 @@ const todosComplete = todos.map((todo) => {
   })
 });
 
-// TODO: A table should be filled completely with a single <td>
 todosComplete.push(
   {activity: 'Plan two todos in the same time frame.', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
   {activity: 'Check if multiple todos display properly', date: getTodayDate(), time: timeIncrements[0], timeValue: timeValues[0]},
