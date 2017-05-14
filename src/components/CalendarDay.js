@@ -1,6 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const ScheduledTodo = require('./ScheduledTodo');
+const Modal = require('./Modal');
 const TimeSliceHeader = require('./TimeSliceHeader');
 
 class CalendarDay extends React.Component {
@@ -13,6 +14,7 @@ class CalendarDay extends React.Component {
 
     this.goBackInTime = this.goBackInTime.bind(this);
     this.goForwardInTime = this.goForwardInTime.bind(this);
+    this.updateCurrentModal = this.props.updateCurrentModal.bind(this);
     this.updateSelectedDate = this.props.updateSelectedDate.bind(this);
   }
 
@@ -56,7 +58,8 @@ class CalendarDay extends React.Component {
               todo={todo}
               trueDate={trueDate}
               viewDate={viewDate}
-              onClick={this.updateSelectedDate}
+              updateCurrentModal={this.updateCurrentModal}
+              updateSelectedDate={this.updateSelectedDate}
             />
           )
         })
@@ -67,7 +70,8 @@ class CalendarDay extends React.Component {
             todo={{}}
             timeSlice={timeSlice}
             trueDate={trueDate}
-            onClick={this.updateSelectedDate}
+            updateCurrentModal={this.updateCurrentModal}
+            updateSelectedDate={this.updateSelectedDate}
           />
       }
 
@@ -119,6 +123,7 @@ CalendarDay.propTypes = {
     })
   ).isRequired,
   trueDate: PropTypes.instanceOf(Date).isRequired,
+  updateCurrentModal: PropTypes.func.isRequired,
   updateSelectedDate: PropTypes.func.isRequired,
   updateViewDate: PropTypes.func.isRequired,
   viewDate: PropTypes.instanceOf(Date)
