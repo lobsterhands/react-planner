@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 class Clock extends React.Component {
 
@@ -44,6 +45,11 @@ class Clock extends React.Component {
       </div>
     )
   }
+}
+
+Clock.propTypes = {
+  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateTrueDate: PropTypes.func.isRequired,
 }
 
 module.exports = Clock;
