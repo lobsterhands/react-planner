@@ -7,7 +7,6 @@ const CalendarWeek = require('./CalendarWeek');
 const CalendarMonth = require('./CalendarMonth');
 const CalendarYear = require('./CalendarYear');
 const CalendarViewPicker = require('./CalendarViewPicker');
-const Todos = require('./Todos');
 
 const mockTodos = require('./mock-data/mockTodos');
 

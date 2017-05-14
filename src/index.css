@@ -69,27 +69,6 @@ h2 {
   margin: 0 auto;
 }
 
-/*===Todos===*/
-.Todos {
-  width: 360px;
-  min-height: 200px;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.todo {
-  cursor: pointer;
-  clear: both;
-  margin: 0 0 6px 0;
-  padding: 0 10px 0 4px;
-}
-
-.todo-calendar-icon {
-}
-
 /*===Planner===*/
 .Planner {
   text-align: center;
@@ -113,10 +92,6 @@ h2 {
 
 .planner-view-btn-active {
   background: #ddd;
-}
-
-/*===Clock===*/
-.Clock {
 }
 
 /*===CalendarMini===*/
@@ -317,6 +292,17 @@ h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 114px;
+  height: 90px;
+  cursor: pointer;
+}
+
+.calendar-day p {
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+  background: var(--calendar-hover);
 }
 
 .current-month {
@@ -382,12 +368,6 @@ h2 {
 }
 .calendar-left {
   float: left;
-}
-
-.calendar-day {
-  width: 114px;
-  height: 90px;
-  cursor: pointer;
 }
 
 .view-source-code {
