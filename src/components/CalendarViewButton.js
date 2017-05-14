@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 class CalendarViewButton extends React.Component {
   constructor(props) {
@@ -6,17 +7,25 @@ class CalendarViewButton extends React.Component {
   }
 
   render() {
-    const {calendarView, viewCommand} = this.props;
-    let isSelected = viewCommand === calendarView;
+    const {calendarView, title, updateView, viewCommand} = this.props;
+    let isSelected = (viewCommand === calendarView);
 
     return (
       <button className=
         {"planner-view-btn " + (isSelected ? "planner-view-btn-active" : "")}
-        onClick={() => this.props.updateView(this.props.viewCommand)}>
-        {this.props.title}
+        onClick={() => updateView(viewCommand)}
+      >
+        {title}
       </button>
     )
   }
+}
+
+CalendarViewButton.propTypes = {
+  calendarView: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  updateView: PropTypes.func.isRequired,
+  viewCommand: PropTypes.string.isRequired
 }
 
 module.exports = CalendarViewButton;
