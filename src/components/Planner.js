@@ -1,13 +1,14 @@
 const React = require('react');
 const PropTypes = require('prop-types');
+const CalendarHeader = require('./CalendarHeader');
 const CalendarMini = require('./CalendarMini');
 const CalendarDay = require('./CalendarDay');
 const CalendarWeek = require('./CalendarWeek');
 const CalendarMonth = require('./CalendarMonth');
 const CalendarYear = require('./CalendarYear');
-const CalendarViewButton = require('./CalendarViewButton');
-const Clock = require('./Clock');
+const CalendarViewPicker = require('./CalendarViewPicker');
 const Todos = require('./Todos');
+
 const mockTodos = require('./mock-data/mockTodos');
 
 class Planner extends React.Component {
@@ -36,6 +37,7 @@ class Planner extends React.Component {
     this.updateSelectedDate = this.updateSelectedDate.bind(this);
     this.updateTrueDate = this.updateTrueDate.bind(this);
     this.updateViewDate = this.updateViewDate.bind(this);
+    this.updateView = this.updateView.bind(this);
   }
 
   updateSelectedDate(date) {
@@ -66,12 +68,14 @@ class Planner extends React.Component {
   }
 
   render() {
-    const {calendarView, dayNames, monthNames, monthNamesAbbr, selectedDate, timeIncrements, todos, trueDate,
-      viewDate} = this.state;
+    const {
+      calendarView, dayNames, monthNames, monthNamesAbbr, selectedDate,
+      timeIncrements, todos, trueDate,  viewDate
+    } = this.state;
 
     let displayCalendar = null;
     if (calendarView === 'month') {
-      displayCalendar =
+      displayCalendar = (
         <CalendarMonth
           dayNames={dayNames}
           monthNames={monthNames}
@@ -81,9 +85,10 @@ class Planner extends React.Component {
           updateSelectedDate={this.updateSelectedDate}
           updateViewDate={this.updateViewDate}
           viewDate={viewDate}
-        />;
+        />
+      );
     } else if (calendarView === 'day') {
-      displayCalendar =
+      displayCalendar = (
         <CalendarDay
           dayNames={dayNames}
           monthNamesAbbr={monthNamesAbbr}
@@ -93,9 +98,10 @@ class Planner extends React.Component {
           updateSelectedDate={this.updateSelectedDate}
           updateViewDate={this.updateViewDate}
           viewDate={viewDate}
-        />;
+        />
+      );
     } else if (calendarView === 'week') {
-      displayCalendar =
+      displayCalendar = (
         <CalendarWeek
           dayNames={dayNames}
           monthNamesAbbr={monthNamesAbbr}
@@ -105,27 +111,19 @@ class Planner extends React.Component {
           updateSelectedDate={this.updateSelectedDate}
           updateViewDate={this.updateViewDate}
           viewDate={viewDate}
-        />;
+        />
+      );
     } else if (calendarView === 'year') {
       // displayCalendar = <CalendarYear />;
     }
 
     return (
       <div className="Planner">
-        <div className='header'>
-          <h1 className='title'>React Planner</h1>
-          <Clock monthNames={this.state.monthNames} updateTrueDate={this.updateTrueDate}/>
-        </div>
-        <div className='separator'></div>
-
-        <div className="planner-view-btn-container">
-          <CalendarViewButton title={'Day'} calendarView={calendarView} viewCommand={'day'} updateView={(cmd) => this.updateView(cmd)}/>
-          <CalendarViewButton title={'Week'} calendarView={calendarView} viewCommand={'week'} updateView={(cmd) => this.updateView(cmd)}/>
-          <CalendarViewButton title={'Month'} calendarView={calendarView} viewCommand={'month'} updateView={(cmd) => this.updateView(cmd)}/>
-        </div>
+        <CalendarHeader monthNames={monthNames} updateTrueDate={this.updateTrueDate} />
+        <CalendarViewPicker calendarView={calendarView} updateView={this.updateView} />
 
         <div className="calendar-container">
-          <div className="planner-container">
+          <div className="calendar-mini-container">
             <CalendarMini
               calendarView={calendarView}
               monthNames={monthNames}
