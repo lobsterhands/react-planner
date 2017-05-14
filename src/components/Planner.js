@@ -18,6 +18,7 @@ class Planner extends React.Component {
 
     this.state = {
       calendarView: 'week',
+      currentModal: null,
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
@@ -33,10 +34,18 @@ class Planner extends React.Component {
       viewDate: trueDate
     }
 
+    this.updateCurrentModal = this.updateCurrentModal.bind(this);
     this.updateSelectedDate = this.updateSelectedDate.bind(this);
     this.updateTrueDate = this.updateTrueDate.bind(this);
     this.updateViewDate = this.updateViewDate.bind(this);
     this.updateView = this.updateView.bind(this);
+  }
+
+  updateCurrentModal(modal) {
+    console.log("setting a modal");
+    this.setState({
+      currentModal: modal
+    });
   }
 
   updateSelectedDate(date) {
@@ -67,6 +76,10 @@ class Planner extends React.Component {
   }
 
   render() {
+    if (this.state.currentModal) {
+      alert('render modal');
+    }
+
     const {
       calendarView, dayNames, monthNames, monthNamesAbbr, selectedDate,
       timeIncrements, todos, trueDate,  viewDate
@@ -94,6 +107,7 @@ class Planner extends React.Component {
           timeIncrements={timeIncrements}
           todos={todos}
           trueDate={trueDate}
+          updateCurrentModal={this.updateCurrentModal}
           updateSelectedDate={this.updateSelectedDate}
           updateViewDate={this.updateViewDate}
           viewDate={viewDate}
