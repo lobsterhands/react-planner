@@ -207,9 +207,9 @@ h2 {
 }
 
 .day-schedule-todo {
+  margin: 1px;
   flex-grow: 1;
   min-height: 20px;
-  margin: 1px;
   border: 1px solid #ddd;
   height: 14px;
   overflow: hidden;
