@@ -3,7 +3,12 @@ const PropTypes = require('prop-types');
 
 class ScheduledTodo extends React.Component {
   handleClick(e, date, timeSlice) {
-    this.props.onClick(date);
+    console.log('x:',e.nativeEvent.x);
+    console.log('y:',e.nativeEvent.y);
+    console.log(date);
+    console.log(timeSlice);
+    this.props.updateSelectedDate(date);
+    this.props.updateCurrentModal(date);
   }
 
   render() {
@@ -29,8 +34,9 @@ ScheduledTodo.propTypes = {
           date: PropTypes.instanceOf(Date)
         }).isRequired,
   trueDate: PropTypes.instanceOf(Date).isRequired,
-  onClick: PropTypes.func.isRequired,
-  viewDate: PropTypes.instanceOf(Date)
+  updateCurrentModal: PropTypes.func.isRequired,
+  updateSelectedDate: PropTypes.func.isRequired,
+  viewDate: PropTypes.instanceOf(Date).isRequired,
 }
 
 module.exports = ScheduledTodo;
