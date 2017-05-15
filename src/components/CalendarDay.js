@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const ScheduledTodo = require('./ScheduledTodo');
 const Modal = require('./Modal');
+const ScheduledTodo = require('./ScheduledTodo');
 const TimeSliceHeader = require('./TimeSliceHeader');
 
 class CalendarDay extends React.Component {
@@ -12,6 +12,7 @@ class CalendarDay extends React.Component {
       viewDate: this.props.viewDate
     }
 
+    this.clickHandler = this.clickHandler.bind(this);
     this.goBackInTime = this.goBackInTime.bind(this);
     this.goForwardInTime = this.goForwardInTime.bind(this);
     this.updateCurrentModal = this.props.updateCurrentModal.bind(this);
@@ -22,6 +23,14 @@ class CalendarDay extends React.Component {
     this.setState({
       viewDate: nextProps.viewDate
     })
+  }
+
+  clickHandler(modalObject) {
+    if (modalObject) {
+      this.updateCurrentModal(<Modal todo={modalObject}/>);
+    } else {
+      this.updateCurrentModal(null);
+    }
   }
 
   goBackInTime() {
@@ -54,24 +63,26 @@ class CalendarDay extends React.Component {
           return (
             <ScheduledTodo
               key={todo.activity}
+              onClick={this.clickHandler}
               timeSlice={timeSlice}
               todo={todo}
               trueDate={trueDate}
-              viewDate={viewDate}
               updateCurrentModal={this.updateCurrentModal}
               updateSelectedDate={this.updateSelectedDate}
+              viewDate={viewDate}
             />
           )
         })
       } else {
         todoElements =
           <ScheduledTodo
-            viewDate={viewDate}
-            todo={{}}
+            onClick={this.clickHandler}
             timeSlice={timeSlice}
+            todo={{}}
             trueDate={trueDate}
             updateCurrentModal={this.updateCurrentModal}
             updateSelectedDate={this.updateSelectedDate}
+            viewDate={viewDate}
           />
       }
 
@@ -115,6 +126,7 @@ class CalendarDay extends React.Component {
 CalendarDay.propTypes = {
   dayNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   monthNamesAbbr: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
   timeIncrements: PropTypes.arrayOf(PropTypes.string).isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
