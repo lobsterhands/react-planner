@@ -377,3 +377,18 @@ h2 {
 .view-source-code a {
   cursor: pointer;
 }
+
+/*===Modal===*/
+.Modal {
+  border: 2px solid var(--color-softblue);
+  background: white;
+  padding: 10px;
+  box-shadow: 4px 4px 5px #888888;
+  position: absolute;
+  top: 10px;
+  font-size: 12px;
+}
+
+.placeholder {
+  color: #ccc;
+}
