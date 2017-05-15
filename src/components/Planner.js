@@ -34,6 +34,7 @@ class Planner extends React.Component {
       viewDate: trueDate
     }
 
+    this.clickHandler = this.clickHandler.bind(this);
     this.updateCurrentModal = this.updateCurrentModal.bind(this);
     this.updateSelectedDate = this.updateSelectedDate.bind(this);
     this.updateTrueDate = this.updateTrueDate.bind(this);
@@ -41,8 +42,27 @@ class Planner extends React.Component {
     this.updateView = this.updateView.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener('mousedown', () => {this.clickHandler()});
+  }
+
+  clickHandler() {
+    const {currentModal} = this.state;
+
+    if (currentModal) { // Make sure a modal exists before updating state
+      const isClickOnModal = event.path.some((elem) => {
+        return (elem.className === 'Modal');
+      });
+
+      if (!isClickOnModal) {
+        this.setState({
+          currentModal: null
+        });
+      }
+    }
+  }
+
   updateCurrentModal(modal) {
-    console.log("setting a modal");
     this.setState({
       currentModal: modal
     });
@@ -76,12 +96,8 @@ class Planner extends React.Component {
   }
 
   render() {
-    if (this.state.currentModal) {
-      alert('render modal');
-    }
-
     const {
-      calendarView, dayNames, monthNames, monthNamesAbbr, selectedDate,
+      calendarView, currentModal, dayNames, monthNames, monthNamesAbbr, selectedDate,
       timeIncrements, todos, trueDate,  viewDate
     } = this.state;
 
@@ -104,6 +120,7 @@ class Planner extends React.Component {
         <CalendarDay
           dayNames={dayNames}
           monthNamesAbbr={monthNamesAbbr}
+          onClick={this.clickHandler}
           timeIncrements={timeIncrements}
           todos={todos}
           trueDate={trueDate}
@@ -134,6 +151,7 @@ class Planner extends React.Component {
       <div className="Planner">
         <CalendarHeader monthNames={monthNames} updateTrueDate={this.updateTrueDate} />
         <CalendarViewPicker calendarView={calendarView} updateView={this.updateView} />
+        {currentModal}
 
         <div className="calendar-container">
           <div className="calendar-mini-container">
