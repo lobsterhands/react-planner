@@ -8,9 +8,11 @@ class Modal extends React.Component {
 
     return (
       <div className="Modal">
-        <h1>Modal</h1>
-        <h3>Activity: <p className="placeholder">{todo.activity}</p></h3>
-        <h3>Time: <p className="placeholder">{todo.timeSlice}</p></h3>
+        <div className="modal-content">
+          <h1>Modal</h1>
+          <h3>Activity: <p className="placeholder">{todo.activity}</p></h3>
+          <h3>Time: <p className="placeholder">{todo.timeSlice}</p></h3>
+        </div>
       </div>
     )
   }
@@ -18,9 +20,9 @@ class Modal extends React.Component {
 
 Modal.propTypes = {
   todo: PropTypes.shape({
-          activity: PropTypes.string,
-          date: PropTypes.instanceOf(Date)
-        }).isRequired,
+    activity: PropTypes.string,
+    date: PropTypes.instanceOf(Date)
+  }).isRequired,
   posX: PropTypes.number.isRequired,
   posY: PropTypes.number.isRequired
 }

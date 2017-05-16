@@ -380,6 +380,11 @@ h2 {
 
 /*===Modal===*/
 .Modal {
+  width: 100%;
+  background: blue;
+}
+
+.modal-content {
   border: 2px solid var(--color-softblue);
   background: white;
   padding: 10px;

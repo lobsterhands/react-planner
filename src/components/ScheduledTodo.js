@@ -42,9 +42,9 @@ class ScheduledTodo extends React.Component {
 ScheduledTodo.propTypes = {
   timeSlice: PropTypes.string.isRequired,
   todo: PropTypes.shape({
-          activity: PropTypes.string,
-          date: PropTypes.instanceOf(Date)
-        }).isRequired,
+    activity: PropTypes.string,
+    date: PropTypes.instanceOf(Date)
+  }).isRequired,
   trueDate: PropTypes.instanceOf(Date).isRequired,
   onClick: PropTypes.func.isRequired,
   viewDate: PropTypes.instanceOf(Date)
