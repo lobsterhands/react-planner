@@ -69,10 +69,12 @@ class Planner extends React.Component {
   }
 
   updateSelectedDate(date) {
-    this.setState({
-      selectedDate: date,
-      viewDate: date
-    });
+    if (date.getTime() !== this.state.selectedDate.getTime()) {
+      this.setState({
+        selectedDate: date,
+        viewDate: date
+      });
+    }
   }
 
   updateTrueDate() {
@@ -84,9 +86,11 @@ class Planner extends React.Component {
   }
 
   updateViewDate(date) {
-    this.setState({
-      viewDate: date
-    })
+    if (date.getTime() !== this.state.viewDate.getTime()) {
+      this.setState({
+        viewDate: date
+      });
+    }
   }
 
   updateView(viewCommand) {
