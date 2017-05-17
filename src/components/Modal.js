@@ -1,24 +1,37 @@
 import React from 'react';
 const PropTypes = require('prop-types');
+const ModalContent = require('./ModalContent');
 
 class Modal extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.closeModal();
+  }
+
   render() {
-    const {todo} = this.props;
-    console.log(todo);
+    const {todo, posX, posY} = this.props;
+
+    let activity = (todo.activity === ''
+      ? (<p className="placeholder">Add activity (this will be input)...</p>)
+      : (<p>{todo.activity}</p>)
+    );
 
     return (
-      <div className="Modal">
-        <div className="modal-content">
-          <h1>Modal</h1>
-          <h3>Activity: <p className="placeholder">{todo.activity}</p></h3>
-          <h3>Time: <p className="placeholder">{todo.timeSlice}</p></h3>
-        </div>
+      <div className="Modal" onClick={this.handleClick}>
+        <ModalContent todo={todo} />
       </div>
     )
   }
 }
 
 Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
   todo: PropTypes.shape({
     activity: PropTypes.string,
     date: PropTypes.instanceOf(Date)
