@@ -15,5 +15,6 @@ To start the development server, run `npm run start`. `src/` files can be edited
 
 | Command | Description |
 | ------- | ----------- |
+| `npm install` | Installs all dependencies. (Windows: may need to run 'npm install --dev' to also install dev dependencies) |
 | `npm run start` | Starts development server with hot reloading. |
 | `npm run build` | Minifies code and outputs files to 'dist/'.   |
