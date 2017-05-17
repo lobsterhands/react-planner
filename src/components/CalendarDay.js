@@ -1,6 +1,5 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const Modal = require('./Modal');
 const ScheduledTodo = require('./ScheduledTodo');
 const TimeSliceHeader = require('./TimeSliceHeader');
 
@@ -12,7 +11,6 @@ class CalendarDay extends React.Component {
       viewDate: this.props.viewDate
     }
 
-    this.clickHandler = this.clickHandler.bind(this);
     this.goBackInTime = this.goBackInTime.bind(this);
     this.goForwardInTime = this.goForwardInTime.bind(this);
     this.updateCurrentModal = this.props.updateCurrentModal.bind(this);
@@ -23,14 +21,6 @@ class CalendarDay extends React.Component {
     this.setState({
       viewDate: nextProps.viewDate
     })
-  }
-
-  clickHandler(modalObject) {
-    if (modalObject) {
-      this.updateCurrentModal(<Modal todo={modalObject}/>);
-    } else {
-      this.updateCurrentModal(null);
-    }
   }
 
   goBackInTime() {
@@ -63,7 +53,6 @@ class CalendarDay extends React.Component {
           return (
             <ScheduledTodo
               key={todo.activity}
-              onClick={this.clickHandler}
               timeSlice={timeSlice}
               todo={todo}
               trueDate={trueDate}
@@ -76,7 +65,6 @@ class CalendarDay extends React.Component {
       } else {
         todoElements =
           <ScheduledTodo
-            onClick={this.clickHandler}
             timeSlice={timeSlice}
             todo={{}}
             trueDate={trueDate}

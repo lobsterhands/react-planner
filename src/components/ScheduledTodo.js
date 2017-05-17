@@ -1,5 +1,6 @@
 import React from 'react';
 const PropTypes = require('prop-types');
+const Modal = require('./Modal');
 
 class ScheduledTodo extends React.Component {
   constructor(props) {
@@ -7,19 +8,23 @@ class ScheduledTodo extends React.Component {
   }
 
   handleClick(timeSlice, todo, viewDate) {
-    let modalObj = new Object();
+    let modalInfo = new Object();
 
-    if (todo.activity) {
-      modalObj = todo;
-      this.props.onClick(modalObj);
+    if (todo.activity) { // todo is not empty object
+      modalInfo = todo;
     } else {
-      modalObj.activity = "Add an activity";
-      modalObj.date = viewDate;
-      modalObj.timeSlice = timeSlice;
-      this.props.onClick(modalObj);
+      // Use timeSlice and viewDate vars to build new Todo object with empty activity ''
+      modalInfo.activity = '';
+      modalInfo.time = timeSlice;
+      modalInfo.date = viewDate;
     }
 
-
+    this.props.updateCurrentModal(
+      <Modal
+        closeModal={() => this.props.updateCurrentModal(null)}
+        todo={modalInfo}
+      />
+    );
     this.props.updateSelectedDate(viewDate);
   }
 
