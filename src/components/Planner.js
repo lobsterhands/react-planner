@@ -1,14 +1,34 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const CalendarHeader = require('./CalendarHeader');
 const CalendarMini = require('./CalendarMini');
 const CalendarDay = require('./CalendarDay');
 const CalendarWeek = require('./CalendarWeek');
 const CalendarMonth = require('./CalendarMonth');
 const CalendarYear = require('./CalendarYear');
 const CalendarViewPicker = require('./CalendarViewPicker');
+const Clock = require('./Clock');
 
 const mockTodos = require('./mock-data/mockTodos');
+
+function CalendarHeader(props) {
+  return (
+    <div>
+      <div className="header">
+        <h1 className="title">React Planner</h1>
+        <Clock
+          monthNames={props.monthNames}
+          updateTrueDate={props.updateTrueDate}
+        />
+      </div>
+      <div className="separator"></div>
+    </div>
+  )
+}
+
+CalendarHeader.propTypes = {
+  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateTrueDate: PropTypes.func.isRequired
+}
 
 class Planner extends React.Component {
   constructor() {
