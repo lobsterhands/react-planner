@@ -1,9 +1,31 @@
 import React from 'react';
 const PropTypes = require('prop-types');
+const Modal = require('./Modal');
 
 class ScheduledTodo extends React.Component {
-  handleClick(e, date, timeSlice) {
-    this.props.onClick(date);
+  constructor(props) {
+    super(props);
+  }
+
+  handleClick(timeSlice, todo, viewDate) {
+    let modalInfo = new Object();
+
+    if (todo.activity) { // todo is not empty object
+      modalInfo = todo;
+    } else {
+      // Use timeSlice and viewDate vars to build new Todo object with empty activity ''
+      modalInfo.activity = '';
+      modalInfo.time = timeSlice;
+      modalInfo.date = viewDate;
+    }
+
+    this.props.updateCurrentModal(
+      <Modal
+        closeModal={() => this.props.updateCurrentModal(null)}
+        todo={modalInfo}
+      />
+    );
+    this.props.updateSelectedDate(viewDate);
   }
 
   render() {
@@ -14,7 +36,7 @@ class ScheduledTodo extends React.Component {
     return (
       <div
         className={'day-schedule-todo' + (isCurrentDay ? ' current-day' : '')}
-        onClick={(e) => this.handleClick(e, viewDate, timeSlice)}
+        onClick={() => this.handleClick(timeSlice, todo, viewDate)}
         key={todo ? todo.activity : timeSlice}>
           {content}
       </div>
@@ -25,9 +47,9 @@ class ScheduledTodo extends React.Component {
 ScheduledTodo.propTypes = {
   timeSlice: PropTypes.string.isRequired,
   todo: PropTypes.shape({
-          activity: PropTypes.string,
-          date: PropTypes.instanceOf(Date)
-        }).isRequired,
+    activity: PropTypes.string,
+    date: PropTypes.instanceOf(Date)
+  }).isRequired,
   trueDate: PropTypes.instanceOf(Date).isRequired,
   onClick: PropTypes.func.isRequired,
   viewDate: PropTypes.instanceOf(Date)

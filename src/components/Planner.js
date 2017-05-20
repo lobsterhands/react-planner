@@ -1,14 +1,34 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const CalendarHeader = require('./CalendarHeader');
 const CalendarMini = require('./CalendarMini');
 const CalendarDay = require('./CalendarDay');
 const CalendarWeek = require('./CalendarWeek');
 const CalendarMonth = require('./CalendarMonth');
 const CalendarYear = require('./CalendarYear');
 const CalendarViewPicker = require('./CalendarViewPicker');
+const Clock = require('./Clock');
 
 const mockTodos = require('./mock-data/mockTodos');
+
+function CalendarHeader(props) {
+  return (
+    <div>
+      <div className="header">
+        <h1 className="title">React Planner</h1>
+        <Clock
+          monthNames={props.monthNames}
+          updateTrueDate={props.updateTrueDate}
+        />
+      </div>
+      <div className="separator"></div>
+    </div>
+  )
+}
+
+CalendarHeader.propTypes = {
+  monthNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateTrueDate: PropTypes.func.isRequired
+}
 
 class Planner extends React.Component {
   constructor() {
@@ -18,6 +38,7 @@ class Planner extends React.Component {
 
     this.state = {
       calendarView: 'week',
+      currentModal: null,
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'],
@@ -33,17 +54,47 @@ class Planner extends React.Component {
       viewDate: trueDate
     }
 
+    this.clickHandler = this.clickHandler.bind(this);
+    this.updateCurrentModal = this.updateCurrentModal.bind(this);
     this.updateSelectedDate = this.updateSelectedDate.bind(this);
     this.updateTrueDate = this.updateTrueDate.bind(this);
     this.updateViewDate = this.updateViewDate.bind(this);
     this.updateView = this.updateView.bind(this);
   }
 
-  updateSelectedDate(date) {
+  componentDidMount() {
+    window.addEventListener('mousedown', () => {this.clickHandler()});
+  }
+
+  clickHandler() {
+    const {currentModal} = this.state;
+
+    if (currentModal) { // Make sure a modal exists before updating state
+      const isClickOnModal = event.path.some((elem) => {
+        return (elem.className === 'Modal');
+      });
+
+      if (!isClickOnModal) {
+        this.setState({
+          currentModal: null
+        });
+      }
+    }
+  }
+
+  updateCurrentModal(modal) {
     this.setState({
-      selectedDate: date,
-      viewDate: date
+      currentModal: modal
     });
+  }
+
+  updateSelectedDate(date) {
+    if (date.getTime() !== this.state.selectedDate.getTime()) {
+      this.setState({
+        selectedDate: date,
+        viewDate: date
+      });
+    }
   }
 
   updateTrueDate() {
@@ -55,9 +106,11 @@ class Planner extends React.Component {
   }
 
   updateViewDate(date) {
-    this.setState({
-      viewDate: date
-    })
+    if (date.getTime() !== this.state.viewDate.getTime()) {
+      this.setState({
+        viewDate: date
+      });
+    }
   }
 
   updateView(viewCommand) {
@@ -68,7 +121,7 @@ class Planner extends React.Component {
 
   render() {
     const {
-      calendarView, dayNames, monthNames, monthNamesAbbr, selectedDate,
+      calendarView, currentModal, dayNames, monthNames, monthNamesAbbr, selectedDate,
       timeIncrements, todos, trueDate,  viewDate
     } = this.state;
 
@@ -91,9 +144,11 @@ class Planner extends React.Component {
         <CalendarDay
           dayNames={dayNames}
           monthNamesAbbr={monthNamesAbbr}
+          onClick={this.clickHandler}
           timeIncrements={timeIncrements}
           todos={todos}
           trueDate={trueDate}
+          updateCurrentModal={this.updateCurrentModal}
           updateSelectedDate={this.updateSelectedDate}
           updateViewDate={this.updateViewDate}
           viewDate={viewDate}
@@ -120,6 +175,7 @@ class Planner extends React.Component {
       <div className="Planner">
         <CalendarHeader monthNames={monthNames} updateTrueDate={this.updateTrueDate} />
         <CalendarViewPicker calendarView={calendarView} updateView={this.updateView} />
+        {currentModal}
 
         <div className="calendar-container">
           <div className="calendar-mini-container">

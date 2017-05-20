@@ -17,7 +17,9 @@ class ScheduleData extends React.Component {
     const [todo] = timeSliceTodos;
 
     return (
-      <td className={"schedule-activity " + (isCurrentDay ? "current-day " : "")} onClick={(e) => this.handleClick(e, date, timeSlice)}>
+      <td
+        className={"schedule-activity " + (isCurrentDay ? "current-day " : "")}
+        onClick={(e) => this.handleClick(e, date, timeSlice)}>
         {(todo ? todo.activity : '')}
       </td>
     )
